@@ -4,6 +4,7 @@
 package tardisschematicviewer;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,6 +32,7 @@ import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_POSITION;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -42,7 +44,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private GLU glu;  // for the GL Utility
     private static float angleX = 45.0f; // rotational angle for x-axis in degree
     private static float angleY = 45.0f; // rotational angle for y-axis in degree
-    private static float z = -15.0f;     // z-location
+    private float z = -15.0f;     // z-location
     private static final int FRAME_WIDTH = 1024;
     private static final int FRAME_HEIGHT = 768;
     private int mouseX = FRAME_WIDTH / 2;
@@ -57,6 +59,9 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private float[] rowAnglesY;
     private float[] faceAnglesZ;
     private final List<Material> notThese = Arrays.asList(Material.AIR, Material.SPONGE, Material.PISTON_EXTENSION);
+    private String path;
+    private boolean isPathSet = false;
+    private boolean isSchematicParsed = false;
 
     /**
      * @param args the command line arguments
@@ -65,13 +70,17 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
         SwingUtilities.invokeLater(() -> {
             GLProfile glp = GLProfile.getDefault();
             GLCapabilities caps = new GLCapabilities(glp);
-            GLJPanel canvas = new GLJPanel();
+            GLJPanel canvas = new GLJPanel(caps);
             canvas.setBackground(Color.gray);
             JFrame frame = new JFrame();
-            frame.getContentPane().add(canvas);
+            TARDISSchematicViewer m = new TARDISSchematicViewer();
+            JPanel ui = new UserInterface(m);
+            ui.setSize(1024, 85);
+            ui.setVisible(true);
+            frame.getContentPane().add(ui, BorderLayout.PAGE_START);
             frame.setTitle("TARDIS Schematic Viewer");
             frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-            frame.add(canvas);
+            frame.getContentPane().add(canvas, BorderLayout.CENTER);
             frame.setVisible(true);
             FPSAnimator animator = new FPSAnimator(canvas, 30, true);
 
@@ -81,6 +90,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
             frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
+
                     // Use a dedicate thread to run the stop() to ensure that the
                     // animator stops before program exits.
                     new Thread() {
@@ -89,18 +99,19 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             if (animator.isStarted()) {
                                 animator.stop();
                             }
+                            frame.dispose();
                             System.exit(0);
                         }
                     }.start();
                 }
             });
-            TARDISSchematicViewer m = new TARDISSchematicViewer();
             canvas.addGLEventListener(m);
             // For handling KeyEvents
             canvas.addKeyListener(m);
             canvas.addMouseMotionListener(m);
             canvas.setFocusable(true);
             canvas.requestFocus();
+            canvas.setVisible(true);
             animator.start();
         });
     }
@@ -116,19 +127,6 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
         gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST); // best perspective correction
         gl.glShadeModel(GLLightingFunc.GL_SMOOTH); // blends colors nicely, and smoothes out lighting
         glad.getGL().setSwapInterval(1);
-        // Use URL so that can read from JAR and disk file.
-        // Filename relative to the project root.
-        JSONObject schm = GZip.unzip("budget.tschm");
-        // get dimensions
-        JSONObject d = (JSONObject) schm.get("dimensions");
-        hei = d.getInt("height");
-        max = hei;
-        wid = d.getInt("width");
-        len = d.getInt("length");
-        columnAnglesX = new float[wid];
-        rowAnglesY = new float[hei];
-        faceAnglesZ = new float[len];
-        arr = (JSONArray) schm.get("input");
         // Set up the lighting for Light-1
         // Ambient light does not come from a particular direction. Need some ambient
         // light to light up the scene. Ambient's value in RGBA
@@ -174,45 +172,53 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     }
 
     private void render(GLAutoDrawable drawable) {
-        GL2 gl = drawable.getGL().getGL2();
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        gl.glLoadIdentity();  // reset the model-view matrix
-        gl.glTranslatef(0.0f, 0.0f, z);         // translate into the screen
-        gl.glRotatef(angleX, 1.0f, 0.0f, 0.0f); // rotate about the x-axis
-        gl.glRotatef(angleY, 0.0f, 1.0f, 0.0f); // rotate about the y-axis
-        // draw a cube
-        int lastIndexX = wid - 1;
-        int lastIndexY = hei - 1;
-        int lastIndexZ = len - 1;
-        for (int h = 0; h < hei; h++) {
-            JSONArray level = (JSONArray) arr.get(h);
-            for (int w = 0; w < wid; w++) {
-                JSONArray row = (JSONArray) level.get(w);
-                for (int l = 0; l < len; l++) {
-                    JSONObject col = (JSONObject) row.get(l);
 
-                    Material m = Material.valueOf((String) col.get("type"));
-                    if (!notThese.contains(m)) {
-                        gl.glPushMatrix();
+        if (!isSchematicParsed) {
+            if (isPathSet) {
+                setSchematic(path);
+                isSchematicParsed = true;
+            }
+        } else {
+            GL2 gl = drawable.getGL().getGL2();
+            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            gl.glLoadIdentity();  // reset the model-view matrix
+            gl.glTranslatef(0.0f, 0.0f, z);         // translate into the screen
+            gl.glRotatef(angleX, 1.0f, 0.0f, 0.0f); // rotate about the x-axis
+            gl.glRotatef(angleY, 0.0f, 1.0f, 0.0f); // rotate about the y-axis
+            // draw a cube
+            int lastIndexX = wid - 1;
+            int lastIndexY = hei - 1;
+            int lastIndexZ = len - 1;
+            for (int h = 0; h < hei; h++) {
+                JSONArray level = (JSONArray) arr.get(h);
+                for (int w = 0; w < wid; w++) {
+                    JSONArray row = (JSONArray) level.get(w);
+                    for (int l = 0; l < len; l++) {
+                        JSONObject col = (JSONObject) row.get(l);
 
-                        gl.glRotatef(columnAnglesX[w], ONE_F, ZERO_F, ZERO_F);
-                        gl.glRotatef(rowAnglesY[h], ZERO_F, ONE_F, ZERO_F);
-                        gl.glRotatef(faceAnglesZ[l], ZERO_F, ZERO_F, ONE_F);
+                        Material m = Material.valueOf((String) col.get("type"));
+                        if (!notThese.contains(m)) {
+                            gl.glPushMatrix();
 
-                        // bottom-left-front corner of cube is (0,0,0) so we need to center it at the origin
-                        float tx = (float) lastIndexX / 2.0f;
-                        float ty = (float) lastIndexY / 2.0f;
-                        float tz = (float) lastIndexZ / 2.0f;
-                        gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
-                        Color color = (m.hasMultpleColours()) ? Colour.getByByte().get(col.getByte("data")) : m.getColor();
-                        if (m.isSlab()) {
-                            Slab.drawSlab(gl, color, 0.25f, 0);
-                        } else if (m.isThin()) {
-                            Slab.drawSlab(gl, color, 0.25f, 0.2f);
-                        } else {
-                            Cube.drawCube(gl, color, 0.25f);
+                            gl.glRotatef(columnAnglesX[w], ONE_F, ZERO_F, ZERO_F);
+                            gl.glRotatef(rowAnglesY[h], ZERO_F, ONE_F, ZERO_F);
+                            gl.glRotatef(faceAnglesZ[l], ZERO_F, ZERO_F, ONE_F);
+
+                            // bottom-left-front corner of cube is (0,0,0) so we need to center it at the origin
+                            float tx = (float) lastIndexX / 2.0f;
+                            float ty = (float) lastIndexY / 2.0f;
+                            float tz = (float) lastIndexZ / 2.0f;
+                            gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
+                            Color color = (m.hasMultpleColours()) ? Colour.getByByte().get(col.getByte("data")) : m.getColor();
+                            if (m.isSlab()) {
+                                Slab.drawSlab(gl, color, 0.25f, 0);
+                            } else if (m.isThin()) {
+                                Slab.drawSlab(gl, color, 0.25f, 0.2f);
+                            } else {
+                                Cube.drawCube(gl, color, 0.25f);
+                            }
+                            gl.glPopMatrix();
                         }
-                        gl.glPopMatrix();
                     }
                 }
             }
@@ -272,5 +278,51 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    public float getZ() {
+        return z;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
+    public int getHei() {
+        return hei;
+    }
+
+    public void setHei(int hei) {
+        this.hei = hei;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+        this.isSchematicParsed = false;
+        this.isPathSet = true;
+    }
+
+    private void setSchematic(String path) {
+        // Use URL so that can read from JAR and disk file.
+        // Filename relative to the project root.
+        JSONObject schm = GZip.unzip(path);
+        // get dimensions
+        JSONObject d = (JSONObject) schm.get("dimensions");
+        hei = d.getInt("height");
+        max = hei;
+        wid = d.getInt("width");
+        len = d.getInt("length");
+        columnAnglesX = new float[wid];
+        rowAnglesY = new float[hei];
+        faceAnglesZ = new float[len];
+        arr = (JSONArray) schm.get("input");
     }
 }
