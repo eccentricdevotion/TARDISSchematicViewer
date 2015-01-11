@@ -202,7 +202,7 @@ public enum Material {
     WOOD_PLATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     WOOD_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     WOOD_STEP(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOL(Color.orange),
+    WOOL(Color.white),
     WORKBENCH(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     YELLOW_FLOWER(Color.yellow),;
 
