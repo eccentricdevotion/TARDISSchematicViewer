@@ -211,9 +211,15 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
                             Color color = (m.hasMultpleColours()) ? Colour.getByByte().get(col.getByte("data")) : m.getColor();
                             if (m.isSlab()) {
-                                Slab.drawSlab(gl, color, 0.25f, 0);
+                                if (col.getByte("data") < 8) {
+                                    Slab.drawSlab(gl, color, 0.25f, 0);
+                                } else {
+                                    SlabUpper.drawUpperSlab(gl, color, 0.25f);
+                                }
                             } else if (m.isThin()) {
                                 Slab.drawSlab(gl, color, 0.25f, 0.2f);
+                            } else if (m.isStair()) {
+                                Stair.drawStair(gl, color, 0.25f, col.getByte("data"));
                             } else {
                                 Cube.drawCube(gl, color, 0.25f);
                             }
