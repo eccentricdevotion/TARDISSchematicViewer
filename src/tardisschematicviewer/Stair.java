@@ -35,7 +35,7 @@ public class Stair {
         }
         gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);
 
-        gl.glBegin(GL_QUADS); // of the texture cube
+        gl.glBegin(GL_QUADS);
 
         // Front Face same as cube
         gl.glColor3f(componenets[0], componenets[1], componenets[2]);

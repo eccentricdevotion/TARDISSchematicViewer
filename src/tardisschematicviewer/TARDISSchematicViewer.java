@@ -220,6 +220,31 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                 Slab.drawSlab(gl, color, 0.25f, 0.2f);
                             } else if (m.isStair()) {
                                 Stair.drawStair(gl, color, 0.25f, col.getByte("data"));
+                            } else if (m.isPlantLike()) {
+                                float thickness;
+                                float height;
+                                switch (m) {
+                                    case BROWN_MUSHROOM:
+                                    case RED_MUSHROOM:
+                                    case CARROT:
+                                    case DEAD_BUSH:
+                                    case LONG_GRASS:
+                                    case NETHER_WARTS:
+                                    case POTATO:
+                                        thickness = 0.025f;
+                                        height = 0.125f;
+                                        break;
+                                    case CROPS:
+                                    case RED_ROSE:
+                                    case YELLOW_FLOWER:
+                                        thickness = 0.025f;
+                                        height = 0.2f;
+                                        break;
+                                    default:
+                                        thickness = 0.0625f;
+                                        height = 0.25f;
+                                }
+                                X.drawX(gl, color, 0.25f, thickness, height);
                             } else {
                                 Cube.drawCube(gl, color, 0.25f);
                             }

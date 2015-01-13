@@ -29,7 +29,8 @@ public class Cube {
     public static void drawCube(GL2 gl, Color c, float size) {
 
         float[] componenets = c.getColorComponents(null);
-        gl.glBegin(GL_QUADS); // of the texture cube
+
+        gl.glBegin(GL_QUADS);
 
         // Front Face
         gl.glColor3f(componenets[0], componenets[1], componenets[2]);
