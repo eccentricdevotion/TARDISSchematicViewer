@@ -22,19 +22,19 @@ import java.util.HashMap;
  *
  * @author eccentric_nz
  */
-public class StairRotation {
+public class FenceRotation {
 
     private static final HashMap<Byte, Float> byByte = new HashMap<>();
 
     static {
-        StairRotation.byByte.put((byte) 0, 90.0f);
-        StairRotation.byByte.put((byte) 1, -90.0f);
-        StairRotation.byByte.put((byte) 2, 180.0f);
-        StairRotation.byByte.put((byte) 3, 0.0f);
-        StairRotation.byByte.put((byte) 4, 90.0f);
-        StairRotation.byByte.put((byte) 5, -90.0f);
-        StairRotation.byByte.put((byte) 6, 0.0f);
-        StairRotation.byByte.put((byte) 7, 180.0f);
+        FenceRotation.byByte.put((byte) 0, 0.0f);
+        FenceRotation.byByte.put((byte) 1, 90.0f);
+        FenceRotation.byByte.put((byte) 2, 0.0f);
+        FenceRotation.byByte.put((byte) 3, 90.0f);
+        FenceRotation.byByte.put((byte) 4, 0.0f);
+        FenceRotation.byByte.put((byte) 5, 90.0f);
+        FenceRotation.byByte.put((byte) 6, 0.0f);
+        FenceRotation.byByte.put((byte) 7, 90.0f);
     }
 
     public static HashMap<Byte, Float> getByByte() {

@@ -197,6 +197,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                         JSONObject col = (JSONObject) row.get(l);
 
                         Material m = Material.valueOf((String) col.get("type"));
+                        byte d = col.getByte("data");
                         if (!notThese.contains(m)) {
                             gl.glPushMatrix();
 
@@ -209,9 +210,9 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             float ty = (float) lastIndexY / 2.0f;
                             float tz = (float) lastIndexZ / 2.0f;
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
-                            Color color = (m.hasMultpleColours()) ? Colour.getByByte().get(col.getByte("data")) : m.getColor();
+                            Color color = (m.hasMultpleColours()) ? Colour.getByByte().get(d) : m.getColor();
                             if (m.isSlab()) {
-                                if (col.getByte("data") < 8) {
+                                if (d < 8) {
                                     Slab.drawSlab(gl, color, 0.25f, 0);
                                 } else {
                                     SlabUpper.drawUpperSlab(gl, color, 0.25f);
@@ -219,7 +220,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             } else if (m.isThin()) {
                                 Slab.drawSlab(gl, color, 0.25f, 0.2f);
                             } else if (m.isStair()) {
-                                Stair.drawStair(gl, color, 0.25f, col.getByte("data"));
+                                Stair.drawStair(gl, color, 0.25f, d);
                             } else if (m.isPlantLike()) {
                                 float thickness;
                                 float height;
@@ -245,6 +246,35 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                         height = 0.25f;
                                 }
                                 X.drawX(gl, color, 0.25f, thickness, height);
+                            } else if (m.isFence()) {
+                                float thickness;
+                                float height;
+                                switch (m) {
+                                    case ACACIA_FENCE:
+                                    case ACACIA_FENCE_GATE:
+                                    case BIRCH_FENCE:
+                                    case BIRCH_FENCE_GATE:
+                                    case COBBLE_WALL:
+                                    case DARK_OAK_FENCE:
+                                    case DARK_OAK_FENCE_GATE:
+                                    case FENCE:
+                                    case FENCE_GATE:
+                                    case IRON_FENCE:
+                                    case JUNGLE_FENCE:
+                                    case JUNGLE_FENCE_GATE:
+                                    case NETHER_FENCE:
+                                    case PORTAL:
+                                    case SIGN_POST:
+                                    case SPRUCE_FENCE:
+                                    case SPRUCE_FENCE_GATE:
+                                    case STAINED_GLASS_PANE:
+                                    case STANDING_BANNER:
+                                    case THIN_GLASS:
+                                    default:
+                                        thickness = 0.0625f;
+                                        height = 0.25f;
+                                }
+                                Fence.drawFence(gl, color, 0.25f, thickness, height, FenceRotation.getByByte().get(d));
                             } else {
                                 Cube.drawCube(gl, color, 0.25f);
                             }
