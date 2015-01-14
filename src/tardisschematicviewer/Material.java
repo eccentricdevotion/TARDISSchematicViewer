@@ -7,34 +7,34 @@ import java.awt.Color;
  */
 public enum Material {
 
-    ACACIA_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    ACACIA_FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    ACACIA_FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    ACACIA_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    ACACIA_DOOR(Color.getHSBColor(0.01f, 0.52f, 0.59f)),
+    ACACIA_FENCE(Color.getHSBColor(0.01f, 0.52f, 0.59f)),
+    ACACIA_FENCE_GATE(Color.getHSBColor(0.01f, 0.52f, 0.59f)),
+    ACACIA_STAIRS(Color.getHSBColor(0.01f, 0.52f, 0.59f)),
     ACTIVATOR_RAIL(Color.red),
     AIR(Color.green),
     ANVIL(Color.black),
     BARRIER(Color.white),
     BEACON(Color.cyan),
     BEDROCK(Color.black),
-    BED_BLOCK(Color.red),
-    BIRCH_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    BIRCH_FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    BIRCH_FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    BIRCH_WOOD_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    BED_BLOCK(Color.getHSBColor(0.99f, 0.96f, 0.88f)),
+    BIRCH_DOOR(Color.getHSBColor(0.07f, 0.71f, 0.64f)),
+    BIRCH_FENCE(Color.getHSBColor(0.07f, 0.71f, 0.64f)),
+    BIRCH_FENCE_GATE(Color.getHSBColor(0.07f, 0.71f, 0.64f)),
+    BIRCH_WOOD_STAIRS(Color.getHSBColor(0.07f, 0.71f, 0.64f)),
     BOOKSHELF(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    BREWING_STAND(Color.orange),
-    BRICK(Color.red),
-    BRICK_STAIRS(Color.red),
-    BROWN_MUSHROOM(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    BREWING_STAND(Color.getHSBColor(0.1f, 0.78f, 0.98f)),
+    BRICK(Color.getHSBColor(0.01f, 0.83f, 0.62f)),
+    BRICK_STAIRS(Color.getHSBColor(0.01f, 0.83f, 0.62f)),
+    BROWN_MUSHROOM(Color.getHSBColor(0.09f, 0.17f, 0.8f)),
     BURNING_FURNACE(Color.lightGray),
-    CACTUS(Color.green),
-    CAKE_BLOCK(Color.red),
+    CACTUS(Color.getHSBColor(0.41f, 0.93f, 0.29f)),
+    CAKE_BLOCK(Color.getHSBColor(0.06f, 0.59f, 0.79f)),
     CARPET(Color.pink),
-    CARROT(Color.orange),
+    CARROT(Color.getHSBColor(0.1f, 0.83f, 0.99f)),
     CAULDRON(Color.darkGray),
     CHEST(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    CLAY(Color.gray),
+    CLAY(Color.getHSBColor(0.09f, 0.24f, 0.73f)),
     COAL_BLOCK(Color.black),
     COAL_ORE(Color.black),
     COBBLESTONE(Color.lightGray),
@@ -42,25 +42,25 @@ public enum Material {
     COBBLE_WALL(Color.lightGray),
     COCOA(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     COMMAND(Color.darkGray),
-    CROPS(Color.green),
-    DARK_OAK_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    DARK_OAK_FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    DARK_OAK_FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    DARK_OAK_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    DAYLIGHT_DETECTOR(Color.white),
+    CROPS(Color.getHSBColor(0.14f, 0.76f, 0.7f)),
+    DARK_OAK_DOOR(Color.getHSBColor(0.04f, 0.75f, 0.37f)),
+    DARK_OAK_FENCE(Color.getHSBColor(0.04f, 0.75f, 0.37f)),
+    DARK_OAK_FENCE_GATE(Color.getHSBColor(0.04f, 0.75f, 0.37f)),
+    DARK_OAK_STAIRS(Color.getHSBColor(0.04f, 0.75f, 0.37f)),
+    DAYLIGHT_DETECTOR(Color.getHSBColor(0.0f, 0.0f, 0.78f)),
     DAYLIGHT_DETECTOR_INVERTED(Color.white),
-    DEAD_BUSH(Color.yellow),
+    DEAD_BUSH(Color.getHSBColor(0.13f, 0.15f, 0.98f)),
     DETECTOR_RAIL(Color.gray),
-    DIAMOND_BLOCK(Color.cyan),
-    DIAMOND_ORE(Color.cyan),
+    DIAMOND_BLOCK(Color.getHSBColor(0.48f, 0.45f, 0.98f)),
+    DIAMOND_ORE(Color.getHSBColor(0.48f, 0.45f, 0.98f)),
     DIODE_BLOCK_OFF(Color.red),
     DIODE_BLOCK_ON(Color.red),
-    DIRT(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    DIRT(Color.getHSBColor(0.09f, 0.52f, 0.58f)),
     DISPENSER(Color.lightGray),
     DOUBLE_PLANT(Color.green),
     DOUBLE_STEP(Color.lightGray),
     DOUBLE_STONE_SLAB2(Color.lightGray),
-    DRAGON_EGG(Color.black),
+    DRAGON_EGG(Color.getHSBColor(0.84f, 0.85f, 0.49f)),
     DROPPER(Color.gray),
     EMERALD_BLOCK(Color.green),
     EMERALD_ORE(Color.green),
@@ -68,9 +68,9 @@ public enum Material {
     ENDER_CHEST(Color.green),
     ENDER_PORTAL(Color.black),
     ENDER_PORTAL_FRAME(Color.white),
-    ENDER_STONE(Color.white),
-    FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    ENDER_STONE(Color.getHSBColor(0.09f, 0.14f, 0.87f)),
+    FENCE(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    FENCE_GATE(Color.getHSBColor(0.04f, 0.72f, 0.64f)),//
     FIRE(Color.orange),
     FLOWER_POT(Color.red),
     FURNACE(Color.lightGray),
@@ -96,10 +96,10 @@ public enum Material {
     IRON_TRAPDOOR(Color.lightGray),
     JACK_O_LANTERN(Color.orange),
     JUKEBOX(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    JUNGLE_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    JUNGLE_FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    JUNGLE_FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    JUNGLE_WOOD_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    JUNGLE_DOOR(Color.getHSBColor(0.1f, 0.7f, 0.64f)),
+    JUNGLE_FENCE(Color.getHSBColor(0.1f, 0.7f, 0.64f)),
+    JUNGLE_FENCE_GATE(Color.getHSBColor(0.1f, 0.7f, 0.64f)),
+    JUNGLE_WOOD_STAIRS(Color.getHSBColor(0.1f, 0.7f, 0.64f)),
     LADDER(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     LAPIS_BLOCK(Color.blue),
     LAPIS_ORE(Color.blue),
@@ -116,14 +116,14 @@ public enum Material {
     MONSTER_EGGS(Color.lightGray),
     MOSSY_COBBLESTONE(Color.lightGray),
     MYCEL(Color.pink),
-    NETHERRACK(Color.red),
-    NETHER_BRICK(Color.red),
-    NETHER_BRICK_STAIRS(Color.red),
-    NETHER_FENCE(Color.red),
-    NETHER_WARTS(Color.red),
+    NETHERRACK(Color.getHSBColor(0.99f, 1f, 0.46f)),
+    NETHER_BRICK(Color.getHSBColor(0.99f, 1f, 0.46f)),
+    NETHER_BRICK_STAIRS(Color.getHSBColor(0.99f, 1f, 0.46f)),
+    NETHER_FENCE(Color.getHSBColor(0.99f, 1f, 0.46f)),
+    NETHER_WARTS(Color.getHSBColor(0.93f, 0.96f, 0.62f)),
     NOTE_BLOCK(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    OBSIDIAN(Color.black),
-    PACKED_ICE(Color.cyan),
+    OBSIDIAN(Color.getHSBColor(0.87f, 1f, 0.09f)),
+    PACKED_ICE(Color.getHSBColor(0.57f, 0.35f, 0.97f)),
     PISTON_BASE(Color.gray),
     PISTON_EXTENSION(Color.gray),
     PISTON_MOVING_PIECE(Color.gray),
@@ -149,11 +149,11 @@ public enum Material {
     REDSTONE_WIRE(Color.red),
     RED_MUSHROOM(Color.red),
     RED_ROSE(Color.red),
-    RED_SANDSTONE(Color.red),
-    RED_SANDSTONE_STAIRS(Color.red),
-    SAND(Color.yellow),
-    SANDSTONE(Color.yellow),
-    SANDSTONE_STAIRS(Color.yellow),
+    RED_SANDSTONE(Color.getHSBColor(0.06f, 0.64f, 0.66f)),
+    RED_SANDSTONE_STAIRS(Color.getHSBColor(0.06f, 0.64f, 0.66f)),
+    SAND(Color.getHSBColor(0.15f, 0.27f, 1f)),
+    SANDSTONE(Color.getHSBColor(0.15f, 0.19f, 0.96f)),
+    SANDSTONE_STAIRS(Color.getHSBColor(0.15f, 0.19f, 0.96f)),
     SAPLING(Color.green),
     SEA_LANTERN(Color.white),
     SIGN_POST(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
@@ -166,10 +166,10 @@ public enum Material {
     SOIL(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     SOUL_SAND(Color.darkGray),
     SPONGE(Color.yellow),
-    SPRUCE_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    SPRUCE_FENCE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    SPRUCE_FENCE_GATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    SPRUCE_WOOD_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    SPRUCE_DOOR(Color.getHSBColor(0.07f, 0.58f, 0.5f)),
+    SPRUCE_FENCE(Color.getHSBColor(0.07f, 0.58f, 0.5f)),
+    SPRUCE_FENCE_GATE(Color.getHSBColor(0.07f, 0.58f, 0.5f)),
+    SPRUCE_WOOD_STAIRS(Color.getHSBColor(0.07f, 0.58f, 0.5f)),
     STAINED_CLAY(Color.pink),
     STAINED_GLASS(Color.green),
     STAINED_GLASS_PANE(Color.green),
@@ -186,7 +186,7 @@ public enum Material {
     TNT(Color.red),
     TORCH(Color.yellow),
     TRAPPED_CHEST(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    TRAP_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    TRAP_DOOR(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
     TRIPWIRE(Color.pink),
     TRIPWIRE_HOOK(Color.lightGray),
     VINE(Color.green),
@@ -195,13 +195,13 @@ public enum Material {
     WATER(Color.blue),
     WATER_LILY(Color.green),
     WEB(Color.white),
-    WOOD(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOODEN_DOOR(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOD_BUTTON(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOD_DOUBLE_STEP(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOD_PLATE(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOD_STAIRS(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
-    WOOD_STEP(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
+    WOOD(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOODEN_DOOR(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOOD_BUTTON(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOOD_DOUBLE_STEP(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOOD_PLATE(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOOD_STAIRS(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
+    WOOD_STEP(Color.getHSBColor(0.04f, 0.72f, 0.64f)),
     WOOL(Color.white),
     WORKBENCH(Color.getHSBColor(0.11f, 1.0f, 0.4f)),
     YELLOW_FLOWER(Color.yellow),;
@@ -226,13 +226,30 @@ public enum Material {
      *
      * @return true if the material has multiple colours
      */
-    public boolean hasMultpleColours() {
+    public boolean isStained() {
         switch (this) {
             case CARPET:
             case WOOL:
             case STAINED_CLAY:
             case STAINED_GLASS:
             case STAINED_GLASS_PANE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Gets whether this material is glass.
+     *
+     * @return true if the material is glass
+     */
+    public boolean isGlass() {
+        switch (this) {
+            case GLASS:
+            case STAINED_GLASS:
+            case STAINED_GLASS_PANE:
+            case THIN_GLASS:
                 return true;
             default:
                 return false;
