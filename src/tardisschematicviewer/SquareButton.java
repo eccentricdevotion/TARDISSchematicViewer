@@ -18,32 +18,30 @@ package tardisschematicviewer;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.JButton;
 
 /**
  *
  * @author eccentric_nz
  */
-public class Rectangle extends JPanel {
+public final class SquareButton extends JButton {
 
-    private final int w;
-    private final int h;
+    private static final long serialVersionUID = 7623333770238989633L;
 
-    public Rectangle(int w, int h) {
-        this.w = w;
-        this.h = h;
-    }
+    private final int size;
 
-    protected void paintComponent(Graphics g, Color c) {
-        super.paintComponent(g);
-        g.drawRect(230, 80, 10, 10);
-        g.setColor(c);
-        g.fillRect(230, 80, 10, 10);
+    public SquareButton(int size, Color c) {
+        this.size = size;
+        this.setPreferredSize(getPreferredSize());
+        this.setSize(getPreferredSize());
+        if (c != null) {
+            this.setBackground(c);
+        }
+        this.setOpaque(true);
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(w, h);
+        return new Dimension(size, size);
     }
 }

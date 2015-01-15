@@ -18,6 +18,7 @@ package tardisschematicviewer;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -25,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author eccentric_nz
  */
-public class UserInterface extends javax.swing.JPanel {
+public class UserInterface extends JPanel {
 
     private static final long serialVersionUID = -1098962567729971976L;
     private File lastDir = new File(".");
@@ -73,6 +74,8 @@ public class UserInterface extends javax.swing.JPanel {
 
         fileTextField.setText("Select file");
         fileTextField.setFocusTraversalKeysEnabled(false);
+        fileTextField.setFocusable(false);
+        fileTextField.setRequestFocusEnabled(false);
 
         schematicLabel.setText("TARDIS Schematic:");
         schematicLabel.setFocusTraversalKeysEnabled(false);
@@ -147,7 +150,9 @@ public class UserInterface extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editLayerButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editLayerButtonMouseReleased
-        TARDISSchematicViewer.editor.setVisible(true);
+        Editor editor = (Editor) TARDISSchematicViewer.editor;
+        editor.loadLayer();
+        editor.setVisible(true);
     }//GEN-LAST:event_editLayerButtonMouseReleased
 
     private void saveButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseReleased

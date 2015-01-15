@@ -51,6 +51,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private int mouseY = FRAME_HEIGHT / 2;
     private static final int CAMERA_ROTATE_STEP_DEGREES = 5;
     private int hei, wid, len, max;
+    private JSONObject schm;
     private JSONArray arr;
     private static final float ZERO_F = 0.0f;
     private static final float ONE_F = 1.0f;
@@ -411,7 +412,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private void setSchematic(String path) {
         // Use URL so that can read from JAR and disk file.
         // Filename relative to the project root.
-        JSONObject schm = GZip.unzip(path);
+        schm = GZip.unzip(path);
         // get dimensions
         JSONObject d = (JSONObject) schm.get("dimensions");
         hei = d.getInt("height");
@@ -422,5 +423,9 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
         rowAnglesY = new float[hei];
         faceAnglesZ = new float[len];
         arr = (JSONArray) schm.get("input");
+    }
+
+    public JSONObject getSchm() {
+        return schm;
     }
 }

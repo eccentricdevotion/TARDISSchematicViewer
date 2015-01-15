@@ -16,13 +16,26 @@
  */
 package tardisschematicviewer;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author eccentric_nz
  */
-public class Editor extends javax.swing.JPanel {
+public class Editor extends JPanel {
+
+    private static final long serialVersionUID = 6012462642009590681L;
 
     private final TARDISSchematicViewer viewer;
+    private final List<SquareButton> buttons;
+    private SquareButton selected;
+    private JSONObject schm;
 
     /**
      * Creates new form Editor
@@ -31,6 +44,7 @@ public class Editor extends javax.swing.JPanel {
      */
     public Editor(TARDISSchematicViewer viewer) {
         this.viewer = viewer;
+        this.buttons = new ArrayList<>();
         initComponents();
     }
 
@@ -45,6 +59,10 @@ public class Editor extends javax.swing.JPanel {
 
         close = new javax.swing.JButton();
         layoutArea = new javax.swing.JInternalFrame();
+        matLabel = new javax.swing.JLabel();
+        dataLabel = new javax.swing.JLabel();
+        mat = new javax.swing.JLabel();
+        dat = new javax.swing.JLabel();
 
         close.setText("Close");
         close.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,6 +92,10 @@ public class Editor extends javax.swing.JPanel {
             .addGap(0, 598, Short.MAX_VALUE)
         );
 
+        matLabel.setText("Material:");
+
+        dataLabel.setText("Data:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,14 +107,31 @@ public class Editor extends javax.swing.JPanel {
                         .addComponent(close))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(layoutArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(408, Short.MAX_VALUE))
+                        .addComponent(layoutArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(matLabel)
+                            .addComponent(dataLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dat, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(layoutArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(layoutArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(matLabel)
+                            .addComponent(mat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dataLabel)
+                            .addComponent(dat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(close)
                 .addContainerGap())
@@ -107,8 +146,64 @@ public class Editor extends javax.swing.JPanel {
         this.setVisible(false);
     }//GEN-LAST:event_closeMouseReleased
 
+    public void loadLayer() {
+        if (buttons.size() > 0) {
+            buttons.stream().forEach((q) -> {
+                layoutArea.remove(q);
+            });
+            buttons.clear();
+        }
+        layoutArea.setLayout(null);
+        schm = viewer.getSchm();
+        if (schm != null) {
+            JSONObject d = (JSONObject) schm.get("dimensions");
+            int current = viewer.getHei() - 1;
+            JSONArray level = ((JSONArray) schm.get("input")).getJSONArray(current);
+            int xx = d.getInt("width");
+            int w = layoutArea.getWidth() / xx;
+            for (int i = 0; i < xx; i++) {
+                JSONArray row = (JSONArray) level.get(i);
+                for (int j = 0; j < xx; j++) {
+                    JSONObject col = (JSONObject) row.get(j);
+                    Material m = Material.valueOf(col.getString("type"));
+                    SquareButton sb = new SquareButton(w, m.getColor());
+                    sb.setText(col.getString("type").substring(0, 1));
+                    sb.setPreferredSize(new Dimension(w, w));
+                    sb.setBounds(i * w, j * w, w, w);
+                    sb.setBorder(new LineBorder(Color.BLACK));
+                    sb.setToolTipText(col.getString("type") + ":" + col.getByte("data"));
+                    sb.addActionListener(al);
+                    layoutArea.add(sb);
+                    buttons.add(sb);
+                }
+            }
+        } else {
+            System.out.println("schm was null");
+        }
+    }
+
+    ActionListener al = (java.awt.event.ActionEvent evt) -> {
+        squareActionPerformed(evt);
+    };
+
+    private void squareActionPerformed(java.awt.event.ActionEvent evt) {
+        if (selected != null) {
+            // remove selected border
+            selected.setBorder(new LineBorder(Color.BLACK));
+        }
+        selected = (SquareButton) evt.getSource();
+        String[] split = selected.getToolTipText().split(":");
+        mat.setText(split[0]);
+        dat.setText(split[1]);
+        selected.setBorder(new LineBorder(Color.RED));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;
+    private javax.swing.JLabel dat;
+    private javax.swing.JLabel dataLabel;
     private javax.swing.JInternalFrame layoutArea;
+    private javax.swing.JLabel mat;
+    private javax.swing.JLabel matLabel;
     // End of variables declaration//GEN-END:variables
 }
