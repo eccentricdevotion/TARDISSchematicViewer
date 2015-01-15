@@ -17,6 +17,7 @@
 package tardisschematicviewer;
 
 import java.awt.Color;
+import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2GL3.GL_QUADS;
 
@@ -26,11 +27,16 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Cube {
 
-    public static void drawCube(GL2 gl, Color c, float size) {
+    public static void drawCube(GL2 gl, Color c, float size, boolean glass) {
 
         float[] componenets = c.getColorComponents(null);
 
-        gl.glBegin(GL_QUADS);
+        if (glass) {
+            gl.glLineWidth(size * 2);
+            gl.glBegin(GL_LINES);
+        } else {
+            gl.glBegin(GL_QUADS);
+        }
 
         // Front Face
         gl.glColor3f(componenets[0], componenets[1], componenets[2]);

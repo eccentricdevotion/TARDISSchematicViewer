@@ -130,11 +130,11 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
         // Set up the lighting for Light-1
         // Ambient light does not come from a particular direction. Need some ambient
         // light to light up the scene. Ambient's value in RGBA
-        float[] lightAmbientValue = {0.5f, 0.5f, 0.5f, 1.0f};
+        float[] lightAmbientValue = {0.1f, 0.1f, 0.1f, 1.0f};
         // Diffuse light comes from a particular location. Diffuse's value in RGBA
-        float[] lightDiffuseValue = {1.0f, 1.0f, 1.0f, 1.0f};
+        float[] lightDiffuseValue = {0.75f, 0.75f, 0.75f, 1.0f};
         // Diffuse light location xyz (in front of the screen).
-        float lightDiffusePosition[] = {0.0f, 0.0f, 2.0f, 1.0f};
+        float lightDiffusePosition[] = {8.0f, 0.0f, 8.0f, 1.0f};
 
         gl.glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbientValue, 0);
         gl.glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDiffuseValue, 0);
@@ -283,7 +283,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case NETHER_FENCE:
                                     case SPRUCE_FENCE:
                                         thickness = 0.25f;
-                                        height = 0.9f;
+                                        height = 1.9f;
                                         break;
                                     case ACACIA_FENCE_GATE:
                                     case BIRCH_FENCE_GATE:
@@ -291,8 +291,8 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case FENCE_GATE:
                                     case JUNGLE_FENCE_GATE:
                                     case SPRUCE_FENCE_GATE:
-                                        thickness = 0.0625f;
-                                        height = 0.7f;
+                                        thickness = 0.25f;
+                                        height = 1.7f;
                                         break;
                                     case PORTAL:
                                     case SIGN_POST:
@@ -300,15 +300,15 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case STANDING_BANNER:
                                     case THIN_GLASS:
                                         thickness = 0.125f;
-                                        height = 0.5f;
+                                        height = 2.0f;
                                         break;
                                     default:
                                         thickness = 0.25f;
                                         height = ONE_F;
                                 }
-                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(d));
+                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(d), m.isGlass());
                             } else {
-                                Cube.drawCube(gl, color, ONE_F);
+                                Cube.drawCube(gl, color, ONE_F, m.isGlass());
                             }
                             gl.glPopMatrix();
                         }

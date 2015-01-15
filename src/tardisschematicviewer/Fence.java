@@ -17,6 +17,7 @@
 package tardisschematicviewer;
 
 import java.awt.Color;
+import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2GL3.GL_QUADS;
 
@@ -26,7 +27,7 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Fence {
 
-    public static void drawFence(GL2 gl, Color c, float size, float thickness, float height, float angle) {
+    public static void drawFence(GL2 gl, Color c, float size, float thickness, float height, float angle, boolean glass) {
 
         float h = -size + height;
         float[] componenets = c.getColorComponents(null);
@@ -35,7 +36,12 @@ public class Fence {
             gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);
         }
 
-        gl.glBegin(GL_QUADS);
+        if (glass) {
+            gl.glLineWidth(size * 2);
+            gl.glBegin(GL_LINES);
+        } else {
+            gl.glBegin(GL_QUADS);
+        }
 
         // Front Face wide
         gl.glColor3f(componenets[0], componenets[1], componenets[2]);
