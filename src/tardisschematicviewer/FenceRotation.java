@@ -35,6 +35,14 @@ public class FenceRotation {
         FenceRotation.byByte.put((byte) 5, 90.0f);
         FenceRotation.byByte.put((byte) 6, 0.0f);
         FenceRotation.byByte.put((byte) 7, 90.0f);
+        FenceRotation.byByte.put((byte) 8, 0.0f);
+        FenceRotation.byByte.put((byte) 9, 90.0f);
+        FenceRotation.byByte.put((byte) 10, 0.0f);
+        FenceRotation.byByte.put((byte) 11, 90.0f);
+        FenceRotation.byByte.put((byte) 12, 0.0f);
+        FenceRotation.byByte.put((byte) 13, 90.0f);
+        FenceRotation.byByte.put((byte) 14, 0.0f);
+        FenceRotation.byByte.put((byte) 15, 90.0f);
     }
 
     public static HashMap<Byte, Float> getByByte() {
