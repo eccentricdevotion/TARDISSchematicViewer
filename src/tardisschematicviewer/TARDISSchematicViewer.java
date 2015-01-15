@@ -62,6 +62,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private String path;
     private boolean isPathSet = false;
     private boolean isSchematicParsed = false;
+    public static JPanel editor;
 
     /**
      * @param args the command line arguments
@@ -77,7 +78,11 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
             JPanel ui = new UserInterface(m);
             ui.setSize(1024, 85);
             ui.setVisible(true);
+            editor = new Editor(m);
+            editor.setSize(1024, 666);
+            editor.setVisible(false);
             frame.getContentPane().add(ui, BorderLayout.PAGE_START);
+            frame.getContentPane().add(editor, BorderLayout.SOUTH);
             frame.setTitle("TARDIS Schematic Viewer");
             frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             frame.getContentPane().add(canvas, BorderLayout.CENTER);

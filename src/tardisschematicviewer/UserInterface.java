@@ -54,6 +54,8 @@ public class UserInterface extends javax.swing.JPanel {
         fileTextField = new javax.swing.JTextField();
         schematicLabel = new javax.swing.JLabel();
         loadButton = new javax.swing.JButton();
+        editLayerButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
 
         setBounds(new java.awt.Rectangle(0, 0, 1024, 80));
         setMaximumSize(new java.awt.Dimension(1024, 80));
@@ -64,8 +66,8 @@ public class UserInterface extends javax.swing.JPanel {
         browseButton.setFocusTraversalKeysEnabled(false);
         browseButton.setFocusable(false);
         browseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                browseButtonMouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                browseButtonMouseReleased(evt);
             }
         });
 
@@ -81,8 +83,28 @@ public class UserInterface extends javax.swing.JPanel {
         loadButton.setFocusTraversalKeysEnabled(false);
         loadButton.setFocusable(false);
         loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loadButtonMouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                loadButtonMouseReleased(evt);
+            }
+        });
+
+        editLayerButton.setText("Edit layer");
+        editLayerButton.setFocusPainted(false);
+        editLayerButton.setFocusTraversalKeysEnabled(false);
+        editLayerButton.setFocusable(false);
+        editLayerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                editLayerButtonMouseReleased(evt);
+            }
+        });
+
+        saveButton.setText("Save");
+        saveButton.setFocusPainted(false);
+        saveButton.setFocusTraversalKeysEnabled(false);
+        saveButton.setFocusable(false);
+        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                saveButtonMouseReleased(evt);
             }
         });
 
@@ -94,14 +116,18 @@ public class UserInterface extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(editLayerButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(loadButton))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(schematicLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fileTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+                        .addComponent(fileTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(browseButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(loadButton))))
+                        .addComponent(browseButton))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,21 +138,32 @@ public class UserInterface extends javax.swing.JPanel {
                     .addComponent(fileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(schematicLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loadButton)
+                    .addComponent(editLayerButton)
+                    .addComponent(saveButton))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void browseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseButtonMouseClicked
-        this.choose(fileTextField, "TARDIS Schematic", "tschm");
-    }//GEN-LAST:event_browseButtonMouseClicked
+    private void editLayerButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editLayerButtonMouseReleased
+        TARDISSchematicViewer.editor.setVisible(true);
+    }//GEN-LAST:event_editLayerButtonMouseReleased
 
-    private void loadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadButtonMouseClicked
+    private void saveButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveButtonMouseReleased
+
+    private void browseButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseButtonMouseReleased
+        this.choose(fileTextField, "TARDIS Schematic", "tschm");
+    }//GEN-LAST:event_browseButtonMouseReleased
+
+    private void loadButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadButtonMouseReleased
         String path = fileTextField.getText();
         if (!path.isEmpty() && !path.equals("Select file")) {
             viewer.setPath(fileTextField.getText());
         }
-    }//GEN-LAST:event_loadButtonMouseClicked
+    }//GEN-LAST:event_loadButtonMouseReleased
 
     /**
      * Opens a file chooser.
@@ -149,8 +186,10 @@ public class UserInterface extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButton;
+    private javax.swing.JButton editLayerButton;
     private javax.swing.JTextField fileTextField;
     private javax.swing.JButton loadButton;
+    private javax.swing.JButton saveButton;
     private javax.swing.JLabel schematicLabel;
     // End of variables declaration//GEN-END:variables
 

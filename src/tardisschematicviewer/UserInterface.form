@@ -27,19 +27,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="schematicLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="fileTextField" pref="792" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="editLayerButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="browseButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="loadButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="loadButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="schematicLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="fileTextField" pref="794" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="browseButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -55,8 +59,12 @@
                   <Component id="schematicLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="loadButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="loadButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editLayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="9" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,7 +78,7 @@
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseButtonMouseClicked"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseButtonMouseReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="fileTextField">
@@ -94,7 +102,29 @@
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadButtonMouseClicked"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadButtonMouseReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="editLayerButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Edit layer"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="focusTraversalKeysEnabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editLayerButtonMouseReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="saveButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="focusTraversalKeysEnabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="saveButtonMouseReleased"/>
       </Events>
     </Component>
   </SubComponents>
