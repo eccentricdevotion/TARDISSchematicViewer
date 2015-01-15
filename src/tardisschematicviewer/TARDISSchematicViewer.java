@@ -44,7 +44,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private GLU glu;  // for the GL Utility
     private static float angleX = 45.0f; // rotational angle for x-axis in degree
     private static float angleY = 45.0f; // rotational angle for y-axis in degree
-    private float z = -15.0f;     // z-location
+    private float z = -60.0f;     // z-location
     private static final int FRAME_WIDTH = 1024;
     private static final int FRAME_HEIGHT = 768;
     private int mouseX = FRAME_WIDTH / 2;
@@ -54,7 +54,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private JSONArray arr;
     private static final float ZERO_F = 0.0f;
     private static final float ONE_F = 1.0f;
-    private static final float CUBIE_TRANSLATION_FACTOR = 0.5f;
+    private static final float CUBIE_TRANSLATION_FACTOR = 2.0f;
     private float[] columnAnglesX;
     private float[] rowAnglesY;
     private float[] faceAnglesZ;
@@ -232,14 +232,18 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             }
                             if (m.isSlab()) {
                                 if (d < 8) {
-                                    Slab.drawSlab(gl, color, 0.25f, 0);
+                                    Slab.drawSlab(gl, color, ONE_F, 0);
                                 } else {
-                                    SlabUpper.drawUpperSlab(gl, color, 0.25f);
+                                    SlabUpper.drawUpperSlab(gl, color, ONE_F);
                                 }
                             } else if (m.isThin()) {
-                                Slab.drawSlab(gl, color, 0.25f, 0.2f);
+                                if (m.equals(Material.REDSTONE_WIRE)) {
+                                    Redstone.drawWire(gl, ONE_F);
+                                } else {
+                                    Slab.drawSlab(gl, color, ONE_F, 0.8f);
+                                }
                             } else if (m.isStair()) {
-                                Stair.drawStair(gl, color, 0.25f, d);
+                                Stair.drawStair(gl, color, ONE_F, d);
                             } else if (m.isPlantLike()) {
                                 float thickness;
                                 float height;
@@ -251,20 +255,20 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case LONG_GRASS:
                                     case NETHER_WARTS:
                                     case POTATO:
-                                        thickness = 0.025f;
-                                        height = 0.125f;
+                                        thickness = 0.125f;
+                                        height = 0.5f;
                                         break;
                                     case CROPS:
                                     case RED_ROSE:
                                     case YELLOW_FLOWER:
-                                        thickness = 0.025f;
-                                        height = 0.2f;
+                                        thickness = 0.125f;
+                                        height = 0.8f;
                                         break;
                                     default:
-                                        thickness = 0.0625f;
-                                        height = 0.25f;
+                                        thickness = 0.25f;
+                                        height = ONE_F;
                                 }
-                                X.drawX(gl, color, 0.25f, thickness, height);
+                                X.drawX(gl, color, ONE_F, thickness, height);
                             } else if (m.isFence()) {
                                 float thickness;
                                 float height;
@@ -278,8 +282,8 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case JUNGLE_FENCE:
                                     case NETHER_FENCE:
                                     case SPRUCE_FENCE:
-                                        thickness = 0.0625f;
-                                        height = 0.45f;
+                                        thickness = 0.25f;
+                                        height = 0.9f;
                                         break;
                                     case ACACIA_FENCE_GATE:
                                     case BIRCH_FENCE_GATE:
@@ -288,23 +292,23 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                     case JUNGLE_FENCE_GATE:
                                     case SPRUCE_FENCE_GATE:
                                         thickness = 0.0625f;
-                                        height = 0.35f;
+                                        height = 0.7f;
                                         break;
                                     case PORTAL:
                                     case SIGN_POST:
                                     case STAINED_GLASS_PANE:
                                     case STANDING_BANNER:
                                     case THIN_GLASS:
-                                        thickness = 0.03f;
+                                        thickness = 0.125f;
                                         height = 0.5f;
                                         break;
                                     default:
-                                        thickness = 0.0625f;
-                                        height = 0.25f;
+                                        thickness = 0.25f;
+                                        height = ONE_F;
                                 }
-                                Fence.drawFence(gl, color, 0.25f, thickness, height, FenceRotation.getByByte().get(d));
+                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(d));
                             } else {
-                                Cube.drawCube(gl, color, 0.25f);
+                                Cube.drawCube(gl, color, ONE_F);
                             }
                             gl.glPopMatrix();
                         }
