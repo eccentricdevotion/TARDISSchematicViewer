@@ -212,17 +212,21 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
                             Color color;
                             if (m.isStained()) {
-                                color = Colour.getStainedByByte().get(d);
+                                color = Colour.getStained().get(d);
                             } else if (m.equals(Material.LEAVES)) {
-                                color = Colour.getLeavesByByte().get(d);
+                                color = Colour.getLeaves().get(d);
                             } else if (m.equals(Material.LEAVES_2)) {
-                                color = Colour.getLeaves2ByByte().get(d);
+                                color = Colour.getLeaves_2().get(d);
                             } else if (m.equals(Material.LOG)) {
-                                color = Colour.getLogByByte().get(d);
+                                color = Colour.getLog().get(d);
                             } else if (m.equals(Material.LOG_2)) {
-                                color = Colour.getLog2ByByte().get(d);
+                                color = Colour.getLog_2().get(d);
                             } else if (m.equals(Material.WOOD) || m.equals(Material.WOOD_STEP)) {
-                                color = Colour.getWoodByByte().get(d);
+                                color = Colour.getWood().get(d);
+                            } else if (m.equals(Material.PRISMARINE)) {
+                                color = Colour.getPrismarine().get(d);
+                            } else if (m.equals(Material.STEP)) {
+                                color = Colour.getSlab().get(d);
                             } else {
                                 color = m.getColor();
                             }
@@ -266,25 +270,34 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                 float height;
                                 switch (m) {
                                     case ACACIA_FENCE:
-                                    case ACACIA_FENCE_GATE:
                                     case BIRCH_FENCE:
-                                    case BIRCH_FENCE_GATE:
                                     case COBBLE_WALL:
                                     case DARK_OAK_FENCE:
-                                    case DARK_OAK_FENCE_GATE:
                                     case FENCE:
-                                    case FENCE_GATE:
                                     case IRON_FENCE:
                                     case JUNGLE_FENCE:
-                                    case JUNGLE_FENCE_GATE:
                                     case NETHER_FENCE:
+                                    case SPRUCE_FENCE:
+                                        thickness = 0.0625f;
+                                        height = 0.45f;
+                                        break;
+                                    case ACACIA_FENCE_GATE:
+                                    case BIRCH_FENCE_GATE:
+                                    case DARK_OAK_FENCE_GATE:
+                                    case FENCE_GATE:
+                                    case JUNGLE_FENCE_GATE:
+                                    case SPRUCE_FENCE_GATE:
+                                        thickness = 0.0625f;
+                                        height = 0.35f;
+                                        break;
                                     case PORTAL:
                                     case SIGN_POST:
-                                    case SPRUCE_FENCE:
-                                    case SPRUCE_FENCE_GATE:
                                     case STAINED_GLASS_PANE:
                                     case STANDING_BANNER:
                                     case THIN_GLASS:
+                                        thickness = 0.03f;
+                                        height = 0.5f;
+                                        break;
                                     default:
                                         thickness = 0.0625f;
                                         height = 0.25f;
