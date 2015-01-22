@@ -565,4 +565,14 @@ public enum Material {
                 return false;
         }
     }
+
+    static String[] strings() {
+        String[] m = new String[values().length];
+        int i = 0;
+        for (Material material : values()) {
+            m[i] = material.toString();
+            i++;
+        }
+        return m;
+    }
 }

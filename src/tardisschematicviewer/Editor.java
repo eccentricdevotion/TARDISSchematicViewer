@@ -61,8 +61,8 @@ public class Editor extends JPanel {
         layoutArea = new javax.swing.JInternalFrame();
         matLabel = new javax.swing.JLabel();
         dataLabel = new javax.swing.JLabel();
-        mat = new javax.swing.JLabel();
-        dat = new javax.swing.JLabel();
+        materialComboBox = new javax.swing.JComboBox();
+        dataComboBox = new javax.swing.JComboBox();
 
         close.setText("Close");
         close.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,6 +96,10 @@ public class Editor extends JPanel {
 
         dataLabel.setText("Data:");
 
+        materialComboBox.setModel(new javax.swing.DefaultComboBoxModel(Material.strings()));
+
+        dataComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,8 +118,8 @@ public class Editor extends JPanel {
                             .addComponent(dataLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(mat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dat, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                            .addComponent(materialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dataComboBox, 0, 280, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,11 +131,11 @@ public class Editor extends JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(matLabel)
-                            .addComponent(mat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(materialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dataLabel)
-                            .addComponent(dat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dataComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(close)
                 .addContainerGap())
@@ -192,18 +196,21 @@ public class Editor extends JPanel {
             selected.setBorder(new LineBorder(Color.BLACK));
         }
         selected = (SquareButton) evt.getSource();
+        int x = selected.getX() / 37;
+        int z = selected.getY() / 37;
+        System.out.println(x + "," + z);
         String[] split = selected.getToolTipText().split(":");
-        mat.setText(split[0]);
-        dat.setText(split[1]);
         selected.setBorder(new LineBorder(Color.RED));
+        materialComboBox.setSelectedItem(split[0]);
+        dataComboBox.setSelectedItem(split[1]);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;
-    private javax.swing.JLabel dat;
+    private javax.swing.JComboBox dataComboBox;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JInternalFrame layoutArea;
-    private javax.swing.JLabel mat;
     private javax.swing.JLabel matLabel;
+    private javax.swing.JComboBox materialComboBox;
     // End of variables declaration//GEN-END:variables
 }
