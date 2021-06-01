@@ -19,88 +19,88 @@ package tardisschematicviewer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.media.opengl.GL2;
+
 import static javax.media.opengl.GL2GL3.GL_QUADS;
 
 /**
- *
  * @author eccentric_nz
  */
 public class Redstone {
 
-    static List<Float[]> translations;
+	static List<Float[]> translations;
 
-    static {
-        Redstone.translations = new ArrayList<>();
-        Redstone.translations.add(new Float[]{0.0f, 0.0f, 0.0f});
-        Redstone.translations.add(new Float[]{0.0f, 0.0f, -0.75f});
-        Redstone.translations.add(new Float[]{0.75f, 0.0f, 0.75f});
-        Redstone.translations.add(new Float[]{-0.75f, 0.0f, 0.75f});
-        Redstone.translations.add(new Float[]{-0.75f, 0.0f, -0.75f});
-    }
+	static {
+		Redstone.translations = new ArrayList<>();
+		Redstone.translations.add(new Float[]{0.0f, 0.0f, 0.0f});
+		Redstone.translations.add(new Float[]{0.0f, 0.0f, -0.75f});
+		Redstone.translations.add(new Float[]{0.75f, 0.0f, 0.75f});
+		Redstone.translations.add(new Float[]{-0.75f, 0.0f, 0.75f});
+		Redstone.translations.add(new Float[]{-0.75f, 0.0f, -0.75f});
+	}
 
-    public static void drawWire(GL2 gl, float size) {
+	public static void drawWire(GL2 gl, float size) {
 
-        float quarter = size / 4;
-        float height = -size + quarter / 2;
+		float quarter = size / 4;
+		float height = -size + quarter / 2;
 
-        gl.glPushMatrix();
+		gl.glPushMatrix();
 
-        for (Float[] t : translations) {
+		for (Float[] t : translations) {
 
-            gl.glTranslatef(t[0], t[1], t[2]);
+			gl.glTranslatef(t[0], t[1], t[2]);
 
-            gl.glBegin(GL_QUADS);
+			gl.glBegin(GL_QUADS);
 
-            // Front Face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(0.0f, 0.0f, size);
-            gl.glVertex3f(-quarter, -size, quarter); // bottom-left of the quad
-            gl.glVertex3f(quarter, -size, quarter);  // bottom-right of the quad
-            gl.glVertex3f(quarter, height, quarter);   // top-right of the quad
-            gl.glVertex3f(-quarter, height, quarter);  // top-left of the quad
+			// Front Face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(0.0f, 0.0f, size);
+			gl.glVertex3f(-quarter, -size, quarter); // bottom-left of the quad
+			gl.glVertex3f(quarter, -size, quarter);  // bottom-right of the quad
+			gl.glVertex3f(quarter, height, quarter);   // top-right of the quad
+			gl.glVertex3f(-quarter, height, quarter);  // top-left of the quad
 
-            // Back Face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(0.0f, 0.0f, -size);
-            gl.glVertex3f(-quarter, -size, -quarter);
-            gl.glVertex3f(-quarter, height, -quarter);
-            gl.glVertex3f(quarter, height, -quarter);
-            gl.glVertex3f(quarter, -size, -quarter);
+			// Back Face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(0.0f, 0.0f, -size);
+			gl.glVertex3f(-quarter, -size, -quarter);
+			gl.glVertex3f(-quarter, height, -quarter);
+			gl.glVertex3f(quarter, height, -quarter);
+			gl.glVertex3f(quarter, -size, -quarter);
 
-            // Top Face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(0.0f, size, 0.0f);
-            gl.glVertex3f(-quarter, height, -quarter);
-            gl.glVertex3f(-quarter, height, quarter);
-            gl.glVertex3f(quarter, height, quarter);
-            gl.glVertex3f(quarter, height, -quarter);
+			// Top Face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(0.0f, size, 0.0f);
+			gl.glVertex3f(-quarter, height, -quarter);
+			gl.glVertex3f(-quarter, height, quarter);
+			gl.glVertex3f(quarter, height, quarter);
+			gl.glVertex3f(quarter, height, -quarter);
 
-            // Bottom Face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(0.0f, -size, 0.0f);
-            gl.glVertex3f(-quarter, -size, -quarter);
-            gl.glVertex3f(quarter, -size, -quarter);
-            gl.glVertex3f(quarter, -size, quarter);
-            gl.glVertex3f(-quarter, -size, quarter);
+			// Bottom Face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(0.0f, -size, 0.0f);
+			gl.glVertex3f(-quarter, -size, -quarter);
+			gl.glVertex3f(quarter, -size, -quarter);
+			gl.glVertex3f(quarter, -size, quarter);
+			gl.glVertex3f(-quarter, -size, quarter);
 
-            // Right face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(size, 0.0f, 0.0f);
-            gl.glVertex3f(quarter, -size, -quarter);
-            gl.glVertex3f(quarter, height, -quarter);
-            gl.glVertex3f(quarter, height, quarter);
-            gl.glVertex3f(quarter, -size, quarter);
+			// Right face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(size, 0.0f, 0.0f);
+			gl.glVertex3f(quarter, -size, -quarter);
+			gl.glVertex3f(quarter, height, -quarter);
+			gl.glVertex3f(quarter, height, quarter);
+			gl.glVertex3f(quarter, -size, quarter);
 
-            // Left Face
-            gl.glColor3f(0.8f, 0.07f, 0.11f);
-            gl.glNormal3f(-size, 0.0f, 0.0f);
-            gl.glVertex3f(-quarter, -size, -quarter);
-            gl.glVertex3f(-quarter, -size, quarter);
-            gl.glVertex3f(-quarter, height, quarter);
-            gl.glVertex3f(-quarter, height, -quarter);
+			// Left Face
+			gl.glColor3f(0.8f, 0.07f, 0.11f);
+			gl.glNormal3f(-size, 0.0f, 0.0f);
+			gl.glVertex3f(-quarter, -size, -quarter);
+			gl.glVertex3f(-quarter, -size, quarter);
+			gl.glVertex3f(-quarter, height, quarter);
+			gl.glVertex3f(-quarter, height, -quarter);
 
-            gl.glEnd();
-        }
-        gl.glPopMatrix();
-    }
+			gl.glEnd();
+		}
+		gl.glPopMatrix();
+	}
 }
