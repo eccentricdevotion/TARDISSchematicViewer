@@ -29,65 +29,65 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Cube {
 
-	public static void drawCube(GL2 gl, Color c, float size, boolean glass) {
+    public static void drawCube(GL2 gl, Color c, float size, boolean glass) {
 
-		float[] componenets = c.getColorComponents(null);
+        float[] componenets = c.getColorComponents(null);
 
-		if (glass) {
-			gl.glLineWidth(size * 2);
-			gl.glBegin(GL_LINES);
-		} else {
-			gl.glBegin(GL_QUADS);
-		}
+        if (glass) {
+            gl.glLineWidth(size * 2);
+            gl.glBegin(GL_LINES);
+        } else {
+            gl.glBegin(GL_QUADS);
+        }
 
-		// Front Face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(0.0f, 0.0f, size);
-		gl.glVertex3f(-size, -size, size); // bottom-left of the quad
-		gl.glVertex3f(size, -size, size);  // bottom-right of the quad
-		gl.glVertex3f(size, size, size);   // top-right of the quad
-		gl.glVertex3f(-size, size, size);  // top-left of the quad
+        // Front Face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(0.0f, 0.0f, size);
+        gl.glVertex3f(-size, -size, size); // bottom-left of the quad
+        gl.glVertex3f(size, -size, size);  // bottom-right of the quad
+        gl.glVertex3f(size, size, size);   // top-right of the quad
+        gl.glVertex3f(-size, size, size);  // top-left of the quad
 
-		// Back Face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(0.0f, 0.0f, -size);
-		gl.glVertex3f(-size, -size, -size);
-		gl.glVertex3f(-size, size, -size);
-		gl.glVertex3f(size, size, -size);
-		gl.glVertex3f(size, -size, -size);
+        // Back Face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(0.0f, 0.0f, -size);
+        gl.glVertex3f(-size, -size, -size);
+        gl.glVertex3f(-size, size, -size);
+        gl.glVertex3f(size, size, -size);
+        gl.glVertex3f(size, -size, -size);
 
-		// Top Face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(0.0f, size, 0.0f);
-		gl.glVertex3f(-size, size, -size);
-		gl.glVertex3f(-size, size, size);
-		gl.glVertex3f(size, size, size);
-		gl.glVertex3f(size, size, -size);
+        // Top Face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(0.0f, size, 0.0f);
+        gl.glVertex3f(-size, size, -size);
+        gl.glVertex3f(-size, size, size);
+        gl.glVertex3f(size, size, size);
+        gl.glVertex3f(size, size, -size);
 
-		// Bottom Face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(0.0f, -size, 0.0f);
-		gl.glVertex3f(-size, -size, -size);
-		gl.glVertex3f(size, -size, -size);
-		gl.glVertex3f(size, -size, size);
-		gl.glVertex3f(-size, -size, size);
+        // Bottom Face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(0.0f, -size, 0.0f);
+        gl.glVertex3f(-size, -size, -size);
+        gl.glVertex3f(size, -size, -size);
+        gl.glVertex3f(size, -size, size);
+        gl.glVertex3f(-size, -size, size);
 
-		// Right face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(size, 0.0f, 0.0f);
-		gl.glVertex3f(size, -size, -size);
-		gl.glVertex3f(size, size, -size);
-		gl.glVertex3f(size, size, size);
-		gl.glVertex3f(size, -size, size);
+        // Right face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(size, 0.0f, 0.0f);
+        gl.glVertex3f(size, -size, -size);
+        gl.glVertex3f(size, size, -size);
+        gl.glVertex3f(size, size, size);
+        gl.glVertex3f(size, -size, size);
 
-		// Left Face
-		gl.glColor3f(componenets[0], componenets[1], componenets[2]);
-		gl.glNormal3f(-size, 0.0f, 0.0f);
-		gl.glVertex3f(-size, -size, -size);
-		gl.glVertex3f(-size, -size, size);
-		gl.glVertex3f(-size, size, size);
-		gl.glVertex3f(-size, size, -size);
+        // Left Face
+        gl.glColor3f(componenets[0], componenets[1], componenets[2]);
+        gl.glNormal3f(-size, 0.0f, 0.0f);
+        gl.glVertex3f(-size, -size, -size);
+        gl.glVertex3f(-size, -size, size);
+        gl.glVertex3f(-size, size, size);
+        gl.glVertex3f(-size, size, -size);
 
-		gl.glEnd();
-	}
+        gl.glEnd();
+    }
 }

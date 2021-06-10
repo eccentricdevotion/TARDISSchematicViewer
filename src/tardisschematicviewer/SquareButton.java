@@ -25,22 +25,22 @@ import javax.swing.JButton;
  */
 public final class SquareButton extends JButton {
 
-	private static final long serialVersionUID = 7623333770238989633L;
+    private static final long serialVersionUID = 7623333770238989633L;
 
-	private final int size;
+    private final int size;
 
-	public SquareButton(int size, Color c) {
-		this.size = size;
-		this.setPreferredSize(getPreferredSize());
-		this.setSize(getPreferredSize());
-		if (c != null) {
-			this.setBackground(c);
-		}
-		this.setOpaque(true);
-	}
+    public SquareButton(int size, Color c) {
+        this.size = size;
+        this.setPreferredSize(getPreferredSize());
+        this.setSize(getPreferredSize());
+        if (c != null) {
+            this.setBackground(c);
+        }
+        this.setOpaque(true);
+    }
 
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(size, size);
-	}
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(size, size);
+    }
 }
