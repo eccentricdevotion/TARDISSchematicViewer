@@ -822,9 +822,9 @@ Portions Copyrighted 2013 Sun Microsystems, Inc.
         <script language="javascript">
             <![CDATA[
                 function isTrue(prop) {
-                    return prop != null && 
+                    return prop != null &&
                        (prop.toLowerCase()=="true" || prop.toLowerCase()=="yes" || prop.toLowerCase()=="on");
-                }                    
+                }
                 function prefix(s, len) {
                     if(s == null || len <= 0 || s.length == 0) {
                         return new String("");
