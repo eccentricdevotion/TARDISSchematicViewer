@@ -44,7 +44,7 @@
             </activation>
             <properties>
                 <!-- Set the build number to the date and time of the build -->
-                <build.number>${timestamp}</build.number>
+                <project.build.number>${timestamp}</project.build.number>
             </properties>
             <build>
                 <plugins>
@@ -80,7 +80,7 @@
             </activation>
             <properties>
                 <!-- Get the build number from Jenkins -->
-                <build.number>${env.BUILD_NUMBER}</build.number>
+                <project.build.number>${env.BUILD_NUMBER}</project.build.number>
             </properties>
             <build>
                 <plugins>
