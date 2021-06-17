@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Fence {
 
-    public static void drawFence(GL2 gl, Color c, float size, float thickness, float height, float angle, boolean glass) {
+    public static void drawFence(GL2 gl, Color color, float size, float thickness, float height, float angle, boolean glass) {
 
         float h = -size + height;
-        float[] components = c.getColorComponents(null);
+        float[] components = color.getColorComponents(null);
         // rotate if necessary
         if (angle > 0.0f) {
             gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ public class UserInterface extends JPanel {
 
     @Serial
     private static final long serialVersionUID = -1098962567729971976L;
-    private final TARDISSchematicViewer viewer;
+    private final TardisSchematicViewer viewer;
     private File lastDir = new File(".");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButton;
@@ -42,7 +42,7 @@ public class UserInterface extends JPanel {
      * Creates new form UserInterface
      *
      */
-    public UserInterface(TARDISSchematicViewer viewer) {
+    public UserInterface(TardisSchematicViewer viewer) {
         this.viewer = viewer;
         initComponents();
     }
@@ -122,13 +122,13 @@ public class UserInterface extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editLayerButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editLayerButtonMouseReleased
-        Editor editor = (Editor) TARDISSchematicViewer.editor;
+        Editor editor = (Editor) TardisSchematicViewer.editor;
         editor.loadLayer();
         editor.setVisible(true);
     }//GEN-LAST:event_editLayerButtonMouseReleased
 
     private void saveButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseReleased
-        // TODO add your handling code here:
+        // TODO Add your handling code here:
     }//GEN-LAST:event_saveButtonMouseReleased
 
     private void browseButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseButtonMouseReleased

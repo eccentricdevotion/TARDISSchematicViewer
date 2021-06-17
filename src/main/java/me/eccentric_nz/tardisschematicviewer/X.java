@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class X {
 
-    public static void drawX(GL2 gl, Color c, float size, float thickness, float height) {
+    public static void drawX(GL2 gl, Color color, float size, float thickness, float height) {
 
         float h = -size + height;
-        float[] components = c.getColorComponents(null);
+        float[] components = color.getColorComponents(null);
         // rotate 45 degrees
         gl.glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
 

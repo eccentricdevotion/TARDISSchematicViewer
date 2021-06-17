@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,10 +32,10 @@ public class Editor extends JPanel {
     @Serial
     private static final long serialVersionUID = 6012462642009590681L;
 
-    private final TARDISSchematicViewer viewer;
+    private final TardisSchematicViewer viewer;
     private final List<SquareButton> buttons;
     private SquareButton selected;
-    private JSONObject schm;
+    private JsonObject schematic;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;
     private javax.swing.JComboBox dataComboBox;
@@ -43,13 +43,13 @@ public class Editor extends JPanel {
     private javax.swing.JInternalFrame layoutArea;
     private javax.swing.JLabel matLabel;
     private javax.swing.JComboBox materialComboBox;
-    ActionListener al = this::squareActionPerformed;
+    ActionListener actionListener = this::squareActionPerformed;
 
     /**
      * Creates new form Editor
      *
      */
-    public Editor(TARDISSchematicViewer viewer) {
+    public Editor(TardisSchematicViewer viewer) {
         this.viewer = viewer;
         this.buttons = new ArrayList<>();
         initComponents();
@@ -104,7 +104,7 @@ public class Editor extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        // TODO add your handling code here:
+        // TODO Add your handling code here:
     }//GEN-LAST:event_closeActionPerformed
 
     private void closeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseReleased
@@ -117,17 +117,17 @@ public class Editor extends JPanel {
             buttons.clear();
         }
         layoutArea.setLayout(null);
-        schm = viewer.getSchm();
-        if (schm != null) {
-            JSONObject d = (JSONObject) schm.get("dimensions");
-            int current = viewer.getHei() - 1;
-            JSONArray level = ((JSONArray) schm.get("input")).getJSONArray(current);
+        schematic = viewer.getSchematic();
+        if (schematic != null) {
+            JsonObject d = (JsonObject) schematic.get("dimensions");
+            int current = viewer.getHeight() - 1;
+            JsonArray level = ((JsonArray) schematic.get("input")).getJSONArray(current);
             int xx = d.getInt("width");
             int w = layoutArea.getWidth() / xx;
             for (int i = 0; i < xx; i++) {
-                JSONArray row = (JSONArray) level.get(i);
+                JsonArray row = (JsonArray) level.get(i);
                 for (int j = 0; j < xx; j++) {
-                    JSONObject col = (JSONObject) row.get(j);
+                    JsonObject col = (JsonObject) row.get(j);
                     Material m = Material.valueOf(col.getString("type"));
                     SquareButton sb = new SquareButton(w, m.getColor());
                     sb.setText(col.getString("type").substring(0, 1));
@@ -135,13 +135,13 @@ public class Editor extends JPanel {
                     sb.setBounds(i * w, j * w, w, w);
                     sb.setBorder(new LineBorder(Color.BLACK));
                     sb.setToolTipText(col.getString("type") + ":" + col.getByte("data"));
-                    sb.addActionListener(al);
+                    sb.addActionListener(actionListener);
                     layoutArea.add(sb);
                     buttons.add(sb);
                 }
             }
         } else {
-            System.out.println("schm was null");
+            System.out.println("schematic was null");
         }
     }
 

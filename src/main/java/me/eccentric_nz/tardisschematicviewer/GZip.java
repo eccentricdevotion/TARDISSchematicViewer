@@ -1,5 +1,18 @@
 /*
- *  Copyright 2014 eccentric_nz.
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package me.eccentric_nz.tardisschematicviewer;
 
@@ -15,48 +28,48 @@ import java.util.zip.GZIPOutputStream;
  */
 public class GZip {
 
-    public static void zip(String instr, String outstr) {
+    public static void zip(String inString, String outString) {
         try {
-            try (FileInputStream fis = new FileInputStream(instr); FileOutputStream fos = new FileOutputStream(outstr); GZIPOutputStream gzos = new GZIPOutputStream(fos)) {
+            try (FileInputStream fileInputStream = new FileInputStream(inString); FileOutputStream fileOutputStream = new FileOutputStream(outString); GZIPOutputStream gzipOutputStream = new GZIPOutputStream(fileOutputStream)) {
                 byte[] buffer = new byte[1024 * 16];
                 int len;
-                while ((len = fis.read(buffer)) != -1) {
-                    gzos.write(buffer, 0, len);
+                while ((len = fileInputStream.read(buffer)) != -1) {
+                    gzipOutputStream.write(buffer, 0, len);
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger(TARDISSchematicViewer.class.getName()).log(Level.SEVERE, e.getMessage());
+            Logger.getLogger(TardisSchematicViewer.class.getName()).log(Level.SEVERE, e.getMessage());
         }
     }
 
-    public static JSONObject unzip(String instr) {
-        InputStreamReader isr = null;
-        StringWriter sw = null;
-        String s = "";
+    public static JsonObject unzip(String inString) {
+        InputStreamReader inputStreamReader = null;
+        StringWriter stringWriter = null;
+        String string = "";
         try {
-            GZIPInputStream gzis = new GZIPInputStream(new FileInputStream(instr));
-            isr = new InputStreamReader(gzis, StandardCharsets.UTF_8);
-            sw = new StringWriter();
+            GZIPInputStream gzipInputStream = new GZIPInputStream(new FileInputStream(inString));
+            inputStreamReader = new InputStreamReader(gzipInputStream, StandardCharsets.UTF_8);
+            stringWriter = new StringWriter();
             char[] buffer = new char[1024 * 16];
             int len;
-            while ((len = isr.read(buffer)) > 0) {
-                sw.write(buffer, 0, len);
+            while ((len = inputStreamReader.read(buffer)) > 0) {
+                stringWriter.write(buffer, 0, len);
             }
-            s = sw.toString();
-        } catch (IOException ex) {
-            Logger.getLogger(TARDISSchematicViewer.class.getName()).log(Level.SEVERE, ex.getMessage());
+            string = stringWriter.toString();
+        } catch (IOException e) {
+            Logger.getLogger(TardisSchematicViewer.class.getName()).log(Level.SEVERE, e.getMessage());
         } finally {
             try {
-                if (sw != null) {
-                    sw.close();
+                if (stringWriter != null) {
+                    stringWriter.close();
                 }
-                if (isr != null) {
-                    isr.close();
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(TARDISSchematicViewer.class.getName()).log(Level.SEVERE, ex.getMessage());
+            } catch (IOException e) {
+                Logger.getLogger(TardisSchematicViewer.class.getName()).log(Level.SEVERE, e.getMessage());
             }
         }
-        return (s.startsWith("{")) ? new JSONObject(s) : null;
+        return (string.startsWith("{")) ? new JsonObject(string) : null;
     }
 }

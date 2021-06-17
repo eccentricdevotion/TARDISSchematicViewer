@@ -8,7 +8,7 @@ import java.io.Serial;
  * @author JSON.org
  * @version 2013-02-10
  */
-public class JSONException extends RuntimeException {
+public class JsonException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 0;
@@ -19,7 +19,7 @@ public class JSONException extends RuntimeException {
      *
      * @param message Detail about the reason for the exception.
      */
-    public JSONException(String message) {
+    public JsonException(String message) {
         super(message);
     }
 
@@ -27,7 +27,7 @@ public class JSONException extends RuntimeException {
      * Constructs a new JSONException with the specified cause.
      *
      */
-    public JSONException(Throwable cause) {
+    public JsonException(Throwable cause) {
         super(cause.getMessage());
         this.cause = cause;
     }

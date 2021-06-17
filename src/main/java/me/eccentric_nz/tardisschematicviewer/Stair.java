@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Stair {
 
-    public static void drawStair(GL2 gl, Color c, float size, byte data) {
+    public static void drawStair(GL2 gl, Color color, float size, byte data) {
 
-        float[] components = c.getColorComponents(null);
+        float[] components = color.getColorComponents(null);
         float angle = StairRotation.getByByte().get(data);
         if (data > 3) {
             gl.glRotatef(180.0f, 0.0f, 0.0f, 0.0f);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,12 +30,12 @@ public final class SquareButton extends JButton {
 
     private final int size;
 
-    public SquareButton(int size, Color c) {
+    public SquareButton(int size, Color color) {
         this.size = size;
         this.setPreferredSize(getPreferredSize());
         this.setSize(getPreferredSize());
-        if (c != null) {
-            this.setBackground(c);
+        if (color != null) {
+            this.setBackground(color);
         }
         this.setOpaque(true);
     }

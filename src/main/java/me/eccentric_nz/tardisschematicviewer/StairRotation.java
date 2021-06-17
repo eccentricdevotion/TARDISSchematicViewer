@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,20 +23,20 @@ import java.util.HashMap;
  */
 public class StairRotation {
 
-    private static final HashMap<Byte, Float> byByte = new HashMap<>();
+    private static final HashMap<Byte, Float> BY_BYTE = new HashMap<>();
 
     static {
-        StairRotation.byByte.put((byte) 0, 90.0f);
-        StairRotation.byByte.put((byte) 1, -90.0f);
-        StairRotation.byByte.put((byte) 2, 180.0f);
-        StairRotation.byByte.put((byte) 3, 0.0f);
-        StairRotation.byByte.put((byte) 4, 90.0f);
-        StairRotation.byByte.put((byte) 5, -90.0f);
-        StairRotation.byByte.put((byte) 6, 0.0f);
-        StairRotation.byByte.put((byte) 7, 180.0f);
+        StairRotation.BY_BYTE.put((byte) 0, 90.0f);
+        StairRotation.BY_BYTE.put((byte) 1, -90.0f);
+        StairRotation.BY_BYTE.put((byte) 2, 180.0f);
+        StairRotation.BY_BYTE.put((byte) 3, 0.0f);
+        StairRotation.BY_BYTE.put((byte) 4, 90.0f);
+        StairRotation.BY_BYTE.put((byte) 5, -90.0f);
+        StairRotation.BY_BYTE.put((byte) 6, 0.0f);
+        StairRotation.BY_BYTE.put((byte) 7, 180.0f);
     }
 
     public static HashMap<Byte, Float> getByByte() {
-        return byByte;
+        return BY_BYTE;
     }
 }

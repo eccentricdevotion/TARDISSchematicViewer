@@ -11,7 +11,7 @@ package me.eccentric_nz.tardisschematicviewer;
  * of using the Object's
  * <code>toString()</code> method and quoting the result.
  */
-public interface JSONString {
+public interface JsonString {
 
     /**
      * The

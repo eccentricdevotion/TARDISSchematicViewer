@@ -1,5 +1,18 @@
 /*
- *  Copyright 2015 eccentric_nz.
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package me.eccentric_nz.tardisschematicviewer;
 
@@ -22,7 +35,7 @@ import static javax.media.opengl.fixedfunc.GLLightingFunc.*;
 /**
  * @author eccentric_nz
  */
-public class TARDISSchematicViewer implements GLEventListener, KeyListener, MouseMotionListener {
+public class TardisSchematicViewer implements GLEventListener, KeyListener, MouseMotionListener {
 
     private static final int FRAME_WIDTH = 1024;
     private static final int FRAME_HEIGHT = 768;
@@ -38,9 +51,9 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private float z = -60.0f;     // z-location
     private int mouseX = FRAME_WIDTH / 2;
     private int mouseY = FRAME_HEIGHT / 2;
-    private int hei, wid, len, max;
-    private JSONObject schm;
-    private JSONArray arr;
+    private int height, width, length, max;
+    private JsonObject schematic;
+    private JsonArray array;
     private float[] columnAnglesX;
     private float[] rowAnglesY;
     private float[] faceAnglesZ;
@@ -58,7 +71,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
             GLJPanel canvas = new GLJPanel(caps);
             canvas.setBackground(Color.gray);
             JFrame frame = new JFrame();
-            TARDISSchematicViewer m = new TARDISSchematicViewer();
+            TardisSchematicViewer m = new TardisSchematicViewer();
             JPanel ui = new UserInterface(m);
             ui.setSize(1024, 85);
             ui.setVisible(true);
@@ -172,15 +185,15 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
             gl.glRotatef(angleX, 1.0f, 0.0f, 0.0f); // rotate about the x-axis
             gl.glRotatef(angleY, 0.0f, 1.0f, 0.0f); // rotate about the y-axis
             // draw a cube
-            int lastIndexX = wid - 1;
-            int lastIndexY = hei - 1;
-            int lastIndexZ = len - 1;
-            for (int h = 0; h < hei; h++) {
-                JSONArray level = (JSONArray) arr.get(h);
-                for (int w = 0; w < wid; w++) {
-                    JSONArray row = (JSONArray) level.get(w);
-                    for (int l = 0; l < len; l++) {
-                        JSONObject col = (JSONObject) row.get(l);
+            int lastIndexX = width - 1;
+            int lastIndexY = height - 1;
+            int lastIndexZ = length - 1;
+            for (int h = 0; h < height; h++) {
+                JsonArray level = (JsonArray) array.get(h);
+                for (int w = 0; w < width; w++) {
+                    JsonArray row = (JsonArray) level.get(w);
+                    for (int l = 0; l < length; l++) {
+                        JsonObject col = (JsonObject) row.get(l);
 
                         Material m = Material.valueOf((String) col.get("type"));
                         byte d = col.getByte("data");
@@ -198,21 +211,21 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
                             Color color;
                             if (m.isStained()) {
-                                color = Colour.getStained().get(d);
+                                color = BlockColor.getStained().get(d);
                             } else if (m.equals(Material.LEAVES)) {
-                                color = Colour.getLeaves().get(d);
+                                color = BlockColor.getLeaves().get(d);
                             } else if (m.equals(Material.LEAVES_2)) {
-                                color = Colour.getLeaves_2().get(d);
+                                color = BlockColor.getLeaves2().get(d);
                             } else if (m.equals(Material.LOG)) {
-                                color = Colour.getLog().get(d);
+                                color = BlockColor.getLog().get(d);
                             } else if (m.equals(Material.LOG_2)) {
-                                color = Colour.getLog_2().get(d);
+                                color = BlockColor.getLog2().get(d);
                             } else if (m.equals(Material.WOOD) || m.equals(Material.WOOD_STEP)) {
-                                color = Colour.getWood().get(d);
+                                color = BlockColor.getWood().get(d);
                             } else if (m.equals(Material.PRISMARINE)) {
-                                color = Colour.getPrismarine().get(d);
+                                color = BlockColor.getPrismarine().get(d);
                             } else if (m.equals(Material.STEP)) {
-                                color = Colour.getSlab().get(d);
+                                color = BlockColor.getSlab().get(d);
                             } else {
                                 color = m.getColor();
                             }
@@ -292,15 +305,15 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
             case KeyEvent.VK_UP -> z++;
             case KeyEvent.VK_DOWN -> z--;
             case KeyEvent.VK_LEFT -> {
-                hei--;
-                if (hei < 0) {
-                    hei = 0;
+                height--;
+                if (height < 0) {
+                    height = 0;
                 }
             }
             case KeyEvent.VK_RIGHT -> {
-                hei++;
-                if (hei > max) {
-                    hei = max;
+                height++;
+                if (height > max) {
+                    height = max;
                 }
             }
         }
@@ -340,12 +353,12 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
         this.z = z;
     }
 
-    public int getHei() {
-        return hei;
+    public int getHeight() {
+        return height;
     }
 
-    public void setHei(int hei) {
-        this.hei = hei;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getMax() {
@@ -365,21 +378,21 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private void setSchematic(String path) {
         // Use URL so that can read from JAR and disk file.
         // Filename relative to the project root.
-        schm = GZip.unzip(path);
+        schematic = GZip.unzip(path);
         // get dimensions
-        assert schm != null;
-        JSONObject d = (JSONObject) schm.get("dimensions");
-        hei = d.getInt("height");
-        max = hei;
-        wid = d.getInt("width");
-        len = d.getInt("length");
-        columnAnglesX = new float[wid];
-        rowAnglesY = new float[hei];
-        faceAnglesZ = new float[len];
-        arr = (JSONArray) schm.get("input");
+        assert schematic != null;
+        JsonObject d = (JsonObject) schematic.get("dimensions");
+        height = d.getInt("height");
+        max = height;
+        width = d.getInt("width");
+        length = d.getInt("length");
+        columnAnglesX = new float[width];
+        rowAnglesY = new float[height];
+        faceAnglesZ = new float[length];
+        array = (JsonArray) schematic.get("input");
     }
 
-    public JSONObject getSchm() {
-        return schm;
+    public JsonObject getSchematic() {
+        return schematic;
     }
 }

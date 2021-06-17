@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Cube {
 
-    public static void drawCube(GL2 gl, Color c, float size, boolean glass) {
+    public static void drawCube(GL2 gl, Color color, float size, boolean glass) {
 
-        float[] components = c.getColorComponents(null);
+        float[] components = color.getColorComponents(null);
 
         if (glass) {
             gl.glLineWidth(size * 2);

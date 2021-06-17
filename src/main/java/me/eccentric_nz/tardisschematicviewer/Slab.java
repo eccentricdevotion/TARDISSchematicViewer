@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@ import static javax.media.opengl.GL2GL3.GL_QUADS;
  */
 public class Slab {
 
-    public static void drawSlab(GL2 gl, Color c, float size, float depth) {
+    public static void drawSlab(GL2 gl, Color color, float size, float depth) {
 
-        float[] components = c.getColorComponents(null);
+        float[] components = color.getColorComponents(null);
 
         gl.glBegin(GL_QUADS);
 
