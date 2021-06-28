@@ -40,7 +40,6 @@ public class UserInterface extends JPanel {
 
     /**
      * Creates new form UserInterface
-     *
      */
     public UserInterface(TardisSchematicViewer viewer) {
         this.viewer = viewer;

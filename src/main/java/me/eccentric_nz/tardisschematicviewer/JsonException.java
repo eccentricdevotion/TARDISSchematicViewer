@@ -25,7 +25,6 @@ public class JsonException extends RuntimeException {
 
     /**
      * Constructs a new JSONException with the specified cause.
-     *
      */
     public JsonException(Throwable cause) {
         super(cause.getMessage());

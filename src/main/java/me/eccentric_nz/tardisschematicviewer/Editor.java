@@ -47,7 +47,6 @@ public class Editor extends JPanel {
 
     /**
      * Creates new form Editor
-     *
      */
     public Editor(TardisSchematicViewer viewer) {
         this.viewer = viewer;

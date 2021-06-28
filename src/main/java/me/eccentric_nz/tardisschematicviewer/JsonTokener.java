@@ -36,12 +36,12 @@ import java.io.*;
  */
 public class JsonTokener {
 
+    private final Reader reader;
     private long character;
     private boolean eof;
     private long index;
     private long line;
     private char previous;
-    private final Reader reader;
     private boolean usePrevious;
 
     /**
@@ -61,7 +61,6 @@ public class JsonTokener {
 
     /**
      * Construct a JSONTokener from an InputStream.
-     *
      */
     public JsonTokener(InputStream inputStream) throws JsonException {
         this(new InputStreamReader(inputStream));

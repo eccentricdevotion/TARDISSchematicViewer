@@ -375,6 +375,10 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
         this.isPathSet = true;
     }
 
+    public JsonObject getSchematic() {
+        return schematic;
+    }
+
     private void setSchematic(String path) {
         // Use URL so that can read from JAR and disk file.
         // Filename relative to the project root.
@@ -390,9 +394,5 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
         rowAnglesY = new float[height];
         faceAnglesZ = new float[length];
         array = (JsonArray) schematic.get("input");
-    }
-
-    public JsonObject getSchematic() {
-        return schematic;
     }
 }
