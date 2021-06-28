@@ -1,5 +1,5 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisschematicviewer</groupId>
@@ -89,6 +89,7 @@
         <defaultGoal>clean package install</defaultGoal>
         <plugins>
             <plugin>
+                <!-- Compile -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -131,30 +132,28 @@
     </build>
     <dependencies>
         <dependency>
+            <!-- GlueGen Runtime -->
             <groupId>org.jogamp.gluegen</groupId>
             <artifactId>gluegen-rt-main</artifactId>
-            <version>2.0.2</version>
+            <version>2.3.2</version>
         </dependency>
         <dependency>
+            <!-- JOGL -->
             <groupId>org.jogamp.jogl</groupId>
             <artifactId>jogl-all-main</artifactId>
-            <version>2.0.2</version>
+            <version>2.3.2</version>
         </dependency>
         <dependency>
-            <groupId>org.jogamp.jocl</groupId>
-            <artifactId>jocl</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
+            <!-- JOCL -->
             <groupId>org.jogamp.jocl</groupId>
             <artifactId>jocl-main</artifactId>
-            <version>2.0.2</version>
+            <version>2.3.2</version>
         </dependency>
         <dependency>
-            <!-- audio -->
+            <!-- JOAL (audio) -->
             <groupId>org.jogamp.joal</groupId>
-            <artifactId>joal</artifactId>
-            <version>2.0.2</version>
+            <artifactId>joal-main</artifactId>
+            <version>2.3.2</version>
         </dependency>
     </dependencies>
 </project>
