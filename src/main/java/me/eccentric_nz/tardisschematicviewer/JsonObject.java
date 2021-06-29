@@ -1492,8 +1492,8 @@ public class JsonObject {
          * @return NULL.
          */
         @Override
-        protected final Object clone() {
-            return this;
+        protected final Object clone() throws CloneNotSupportedException {
+            return super.clone();
         }
 
         /**
