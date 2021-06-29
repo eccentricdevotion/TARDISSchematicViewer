@@ -16,21 +16,22 @@
  */
 package me.eccentric_nz.tardisschematicviewer;
 
+import com.jogamp.opengl.*;
+import com.jogamp.opengl.awt.GLJPanel;
+import com.jogamp.opengl.fixedfunc.GLLightingFunc;
+import com.jogamp.opengl.fixedfunc.GLMatrixFunc;
+import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
 
-import javax.media.opengl.*;
-import javax.media.opengl.awt.GLJPanel;
-import javax.media.opengl.fixedfunc.GLLightingFunc;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import java.util.List;
 
-import static javax.media.opengl.GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.*;
+import static com.jogamp.opengl.GL.*;
+import static com.jogamp.opengl.GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT;
+import static com.jogamp.opengl.fixedfunc.GLLightingFunc.*;
 
 /**
  * @author eccentric_nz
@@ -121,9 +122,9 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
         glu = new GLU();                         // get GL Utilities
         gl.glClearColor(0.8f, 0.8f, 0.8f, 0.0f); // set background (grey) color
         gl.glClearDepth(1.0f);      // set clear depth value to farthest
-        gl.glEnable(GL.GL_DEPTH_TEST); // enables depth testing
-        gl.glDepthFunc(GL.GL_LEQUAL);  // the type of depth test to do
-        gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST); // best perspective correction
+        gl.glEnable(GL_DEPTH_TEST); // enables depth testing
+        gl.glDepthFunc(GL_LEQUAL);  // the type of depth test to do
+        gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // best perspective correction
         gl.glShadeModel(GLLightingFunc.GL_SMOOTH); // blends colors nicely, and smoothes out lighting
         glad.getGL().setSwapInterval(1);
         // Set up the lighting for Light-1
@@ -179,7 +180,7 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
             }
         } else {
             GL2 gl = drawable.getGL().getGL2();
-            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             gl.glLoadIdentity();  // reset the model-view matrix
             gl.glTranslatef(0.0f, 0.0f, z);         // translate into the screen
             gl.glRotatef(angleX, 1.0f, 0.0f, 0.0f); // rotate about the x-axis

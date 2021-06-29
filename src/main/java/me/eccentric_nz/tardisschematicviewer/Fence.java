@@ -16,11 +16,12 @@
  */
 package me.eccentric_nz.tardisschematicviewer;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
+
 import java.awt.*;
 
-import static javax.media.opengl.GL.GL_LINES;
-import static javax.media.opengl.GL2GL3.GL_QUADS;
+import static com.jogamp.opengl.GL.GL_LINES;
+import static com.jogamp.opengl.GL2ES3.GL_QUADS;
 
 /**
  * @author eccentric_nz
