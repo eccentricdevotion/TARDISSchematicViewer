@@ -38,11 +38,11 @@ public class Editor extends JPanel {
     private JsonObject schematic;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;
-    private javax.swing.JComboBox dataComboBox;
+    private javax.swing.JComboBox<?> dataComboBox;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JInternalFrame layoutArea;
     private javax.swing.JLabel matLabel;
-    private javax.swing.JComboBox materialComboBox;
+    private javax.swing.JComboBox<?> materialComboBox;
     ActionListener actionListener = this::squareActionPerformed;
 
     /**
@@ -67,8 +67,8 @@ public class Editor extends JPanel {
         layoutArea = new javax.swing.JInternalFrame();
         matLabel = new javax.swing.JLabel();
         dataLabel = new javax.swing.JLabel();
-        materialComboBox = new javax.swing.JComboBox();
-        dataComboBox = new javax.swing.JComboBox();
+        materialComboBox = new javax.swing.JComboBox<>();
+        dataComboBox = new javax.swing.JComboBox<>();
 
         close.setText("Close");
         close.addMouseListener(new java.awt.event.MouseAdapter() {

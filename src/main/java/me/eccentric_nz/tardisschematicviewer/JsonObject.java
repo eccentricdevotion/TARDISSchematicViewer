@@ -569,7 +569,7 @@ public class JsonObject {
      * @throws JsonException If the value is or contains an invalid number.
      */
     public static String valueToString(Object value) throws JsonException {
-        if (value == null || value.equals(null)) {
+        if (value == null) {
             return "null";
         }
         if (value instanceof JsonString) {
@@ -643,7 +643,7 @@ public class JsonObject {
     }
 
     static Writer writeValue(Writer writer, Object value, int indentFactor, int indent) throws JsonException, IOException {
-        if (value == null || value.equals(null)) {
+        if (value == null) {
             writer.write("null");
         } else if (value instanceof JsonObject) {
             ((JsonObject) value).write(writer, indentFactor, indent);
