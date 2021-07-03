@@ -385,7 +385,6 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
         // Filename relative to the project root.
         schematic = GZip.unzip(path);
         // get dimensions
-        assert schematic != null;
         JsonObject d = (JsonObject) schematic.get("dimensions");
         height = d.getInt("height");
         max = height;

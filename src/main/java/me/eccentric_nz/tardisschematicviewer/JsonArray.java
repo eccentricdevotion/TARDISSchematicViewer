@@ -540,7 +540,6 @@ public final class JsonArray {
         if (JsonObject.NULL.equals(object)) {
             return defaultValue;
         } else {
-            assert object != null;
             return object.toString();
         }
     }
