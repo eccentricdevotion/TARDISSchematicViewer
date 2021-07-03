@@ -150,36 +150,13 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
 
     @Override
     public void display(GLAutoDrawable glad) {
-        render(glad);
-    }
-
-    @Override
-    public void reshape(GLAutoDrawable glad, int x, int z, int width, int height) {
-        GL2 gl = glad.getGL().getGL2();  // get the OpenGL 2 graphics context
-        if (height == 0) {
-            height = 1;   // prevent divide by zero
-        }
-        float aspect = (float) width / height;
-        // Set the view port (display area) to cover the entire window
-        gl.glViewport(0, 0, width, height);
-        // Setup perspective projection, with aspect ratio matches viewport
-        gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);  // choose projection matrix
-        gl.glLoadIdentity();             // reset projection matrix
-        glu.gluPerspective(45.0, aspect, 0.1, 100.0); // fovy, aspect, zNear, zFar
-        // Enable the model-view transform
-        gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-        gl.glLoadIdentity(); // reset
-    }
-
-    private void render(GLAutoDrawable drawable) {
-
         if (!isSchematicParsed) {
             if (isPathSet) {
                 setSchematic(path);
                 isSchematicParsed = true;
             }
         } else {
-            GL2 gl = drawable.getGL().getGL2();
+            GL2 gl = glad.getGL().getGL2();
             gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             gl.glLoadIdentity();  // reset the model-view matrix
             gl.glTranslatef(0.0f, 0.0f, z);         // translate into the screen
@@ -293,6 +270,24 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                 }
             }
         }
+    }
+
+    @Override
+    public void reshape(GLAutoDrawable glad, int x, int z, int width, int height) {
+        GL2 gl = glad.getGL().getGL2();  // get the OpenGL 2 graphics context
+        if (height == 0) {
+            height = 1;   // prevent divide by zero
+        }
+        float aspect = (float) width / height;
+        // Set the view port (display area) to cover the entire window
+        gl.glViewport(0, 0, width, height);
+        // Setup perspective projection, with aspect ratio matches viewport
+        gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);  // choose projection matrix
+        gl.glLoadIdentity();             // reset projection matrix
+        glu.gluPerspective(45.0, aspect, 0.1, 100.0); // fovy, aspect, zNear, zFar
+        // Enable the model-view transform
+        gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+        gl.glLoadIdentity(); // reset
     }
 
     @Override
