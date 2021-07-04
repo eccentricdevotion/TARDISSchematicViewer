@@ -48,8 +48,8 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
     private static float angleX = 45.0f; // rotational angle for x-axis in degree
     private static float angleY = 45.0f; // rotational angle for y-axis in degree
     private final List<Material> notThese = Arrays.asList(Material.AIR, Material.SPONGE, Material.PISTON_EXTENSION);
-    private GLU glu;  // for the GL Utility
-    private float z = -60.0f;     // z-location
+    private GLU glu; // for the GL Utility
+    private float z = -60.0f; // z-location
     private int mouseX = FRAME_WIDTH / 2;
     private int mouseY = FRAME_HEIGHT / 2;
     private int height, width, length, max;
@@ -59,24 +59,24 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
     private float[] rowAnglesY;
     private float[] faceAnglesZ;
     private String path;
-    private boolean isPathSet = false;
-    private boolean isSchematicParsed = false;
+    private boolean pathSet = false;
+    private boolean schematicParsed = false;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            GLProfile glp = GLProfile.getDefault();
-            GLCapabilities caps = new GLCapabilities(glp);
-            GLJPanel canvas = new GLJPanel(caps);
+            GLProfile profile = GLProfile.getDefault();
+            GLCapabilities capabilities = new GLCapabilities(profile);
+            GLJPanel canvas = new GLJPanel(capabilities);
             canvas.setBackground(Color.gray);
             JFrame frame = new JFrame();
-            TardisSchematicViewer m = new TardisSchematicViewer();
-            JPanel ui = new UserInterface(m);
+            TardisSchematicViewer tardisSchematicViewer = new TardisSchematicViewer();
+            JPanel ui = new UserInterface(tardisSchematicViewer);
             ui.setSize(1024, 85);
             ui.setVisible(true);
-            editor = new Editor(m);
+            editor = new Editor(tardisSchematicViewer);
             editor.setSize(1024, 666);
             editor.setVisible(false);
             frame.getContentPane().add(ui, BorderLayout.PAGE_START);
@@ -105,10 +105,10 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                     }).start();
                 }
             });
-            canvas.addGLEventListener(m);
+            canvas.addGLEventListener(tardisSchematicViewer);
             // For handling KeyEvents
-            canvas.addKeyListener(m);
-            canvas.addMouseMotionListener(m);
+            canvas.addKeyListener(tardisSchematicViewer);
+            canvas.addMouseMotionListener(tardisSchematicViewer);
             canvas.setFocusable(true);
             canvas.requestFocus();
             canvas.setVisible(true);
@@ -150,10 +150,10 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
 
     @Override
     public void display(GLAutoDrawable glad) {
-        if (!isSchematicParsed) {
-            if (isPathSet) {
+        if (!schematicParsed) {
+            if (pathSet) {
                 setSchematic(path);
-                isSchematicParsed = true;
+                schematicParsed = true;
             }
         } else {
             GL2 gl = glad.getGL().getGL2();
@@ -367,8 +367,8 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
 
     public void setPath(String path) {
         this.path = path;
-        this.isSchematicParsed = false;
-        this.isPathSet = true;
+        this.schematicParsed = false;
+        this.pathSet = true;
     }
 
     public JsonObject getSchematic() {
