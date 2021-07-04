@@ -37,8 +37,8 @@ public class GZip {
                     gzipOutputStream.write(buffer, 0, len);
                 }
             }
-        } catch (IOException e) {
-            Logger.getLogger(TardisSchematicViewer.class.getName()).log(Level.SEVERE, e.getMessage());
+        } catch (IOException ioException) {
+            Logger.getLogger(TardisSchematicViewer.class.getName()).log(Level.SEVERE, ioException.getMessage());
         }
     }
 
