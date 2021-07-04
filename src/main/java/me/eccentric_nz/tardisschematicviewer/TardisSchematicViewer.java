@@ -173,9 +173,9 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                     for (int l = 0; l < length; l++) {
                         JsonObject col = (JsonObject) row.get(l);
 
-                        Material m = Material.valueOf((String) col.get("type"));
-                        byte d = col.getByte("data");
-                        if (!notThese.contains(m)) {
+                        Material material = Material.valueOf((String) col.get("type"));
+                        byte data = col.getByte("data");
+                        if (!notThese.contains(material)) {
                             gl.glPushMatrix();
 
                             gl.glRotatef(columnAnglesX[w], ONE_F, ZERO_F, ZERO_F);
@@ -188,43 +188,43 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                             float tz = (float) lastIndexZ / 2.0f;
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
                             Color color;
-                            if (m.isStained()) {
-                                color = BlockColor.getStained().get(d);
-                            } else if (m.equals(Material.LEAVES)) {
-                                color = BlockColor.getLeaves().get(d);
-                            } else if (m.equals(Material.LEAVES_2)) {
-                                color = BlockColor.getLeaves2().get(d);
-                            } else if (m.equals(Material.LOG)) {
-                                color = BlockColor.getLog().get(d);
-                            } else if (m.equals(Material.LOG_2)) {
-                                color = BlockColor.getLog2().get(d);
-                            } else if (m.equals(Material.WOOD) || m.equals(Material.WOOD_STEP)) {
-                                color = BlockColor.getWood().get(d);
-                            } else if (m.equals(Material.PRISMARINE)) {
-                                color = BlockColor.getPrismarine().get(d);
-                            } else if (m.equals(Material.STEP)) {
-                                color = BlockColor.getSlab().get(d);
+                            if (material.isStained()) {
+                                color = BlockColor.getStained().get(data);
+                            } else if (material.equals(Material.LEAVES)) {
+                                color = BlockColor.getLeaves().get(data);
+                            } else if (material.equals(Material.LEAVES_2)) {
+                                color = BlockColor.getLeaves2().get(data);
+                            } else if (material.equals(Material.LOG)) {
+                                color = BlockColor.getLog().get(data);
+                            } else if (material.equals(Material.LOG_2)) {
+                                color = BlockColor.getLog2().get(data);
+                            } else if (material.equals(Material.WOOD) || material.equals(Material.WOOD_STEP)) {
+                                color = BlockColor.getWood().get(data);
+                            } else if (material.equals(Material.PRISMARINE)) {
+                                color = BlockColor.getPrismarine().get(data);
+                            } else if (material.equals(Material.STEP)) {
+                                color = BlockColor.getSlab().get(data);
                             } else {
-                                color = m.getColor();
+                                color = material.getColor();
                             }
-                            if (m.isSlab()) {
-                                if (d < 8) {
+                            if (material.isSlab()) {
+                                if (data < 8) {
                                     Slab.drawSlab(gl, color, ONE_F, 0);
                                 } else {
                                     SlabUpper.drawUpperSlab(gl, color, ONE_F);
                                 }
-                            } else if (m.isThin()) {
-                                if (m.equals(Material.REDSTONE_WIRE)) {
+                            } else if (material.isThin()) {
+                                if (material.equals(Material.REDSTONE_WIRE)) {
                                     Redstone.drawWire(gl, ONE_F);
                                 } else {
                                     Slab.drawSlab(gl, color, ONE_F, 0.8f);
                                 }
-                            } else if (m.isStair()) {
-                                Stair.drawStair(gl, color, ONE_F, d);
-                            } else if (m.isPlantLike()) {
+                            } else if (material.isStair()) {
+                                Stair.drawStair(gl, color, ONE_F, data);
+                            } else if (material.isPlantLike()) {
                                 float thickness;
                                 float height;
-                                switch (m) {
+                                switch (material) {
                                     case BROWN_MUSHROOM, RED_MUSHROOM, CARROT, DEAD_BUSH, LONG_GRASS, NETHER_WARTS, POTATO -> {
                                         thickness = 0.125f;
                                         height = 0.5f;
@@ -239,10 +239,10 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                                     }
                                 }
                                 X.drawX(gl, color, ONE_F, thickness, height);
-                            } else if (m.isFence()) {
+                            } else if (material.isFence()) {
                                 float thickness;
                                 float height;
-                                switch (m) {
+                                switch (material) {
                                     case ACACIA_FENCE, BIRCH_FENCE, COBBLE_WALL, DARK_OAK_FENCE, FENCE, IRON_FENCE, JUNGLE_FENCE, NETHER_FENCE, SPRUCE_FENCE -> {
                                         thickness = 0.25f;
                                         height = 1.9f;
@@ -260,9 +260,9 @@ public class TardisSchematicViewer implements GLEventListener, KeyListener, Mous
                                         height = ONE_F;
                                     }
                                 }
-                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(d), m.isGlass());
+                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(data), material.isGlass());
                             } else {
-                                Cube.drawCube(gl, color, ONE_F, m.isGlass());
+                                Cube.drawCube(gl, color, ONE_F, material.isGlass());
                             }
                             gl.glPopMatrix();
                         }
