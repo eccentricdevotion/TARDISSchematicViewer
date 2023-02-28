@@ -1,2 +1,5 @@
 build/*
 nbproject/private/private.xml
+.idea/*
+*.iml
+out/*

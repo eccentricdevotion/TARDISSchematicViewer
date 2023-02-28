@@ -59,7 +59,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
     private float[] columnAnglesX;
     private float[] rowAnglesY;
     private float[] faceAnglesZ;
-    private final List<Material> notThese = Arrays.asList(Material.AIR, Material.SPONGE, Material.PISTON_EXTENSION);
+    private final List<Material> notThese = Arrays.asList(Material.air, Material.sponge, Material.moving_piston);
     private String path;
     private boolean isPathSet = false;
     private boolean isSchematicParsed = false;
@@ -99,16 +99,13 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
 
                     // Use a dedicate thread to run the stop() to ensure that the
                     // animator stops before program exits.
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            if (animator.isStarted()) {
-                                animator.stop();
-                            }
-                            frame.dispose();
-                            System.exit(0);
+                    new Thread(() -> {
+                        if (animator.isStarted()) {
+                            animator.stop();
                         }
-                    }.start();
+                        frame.dispose();
+                        System.exit(0);
+                    }).start();
                 }
             });
             canvas.addGLEventListener(m);
@@ -201,9 +198,10 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                     JSONArray row = (JSONArray) level.get(w);
                     for (int l = 0; l < len; l++) {
                         JSONObject col = (JSONObject) row.get(l);
-
-                        Material m = Material.valueOf((String) col.get("type"));
-                        byte d = col.getByte("data");
+                        String data = col.getString("data");
+                        // "minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]"
+                        Material m = Material.fromDataString(data);
+//                        byte d = col.getByte("data");
                         if (!notThese.contains(m)) {
                             gl.glPushMatrix();
 
@@ -216,57 +214,39 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                             float ty = (float) lastIndexY / 2.0f;
                             float tz = (float) lastIndexZ / 2.0f;
                             gl.glTranslatef((w - tx) * CUBIE_TRANSLATION_FACTOR, (h - ty) * CUBIE_TRANSLATION_FACTOR, -(l - tz) * CUBIE_TRANSLATION_FACTOR);
-                            Color color;
-                            if (m.isStained()) {
-                                color = Colour.getStained().get(d);
-                            } else if (m.equals(Material.LEAVES)) {
-                                color = Colour.getLeaves().get(d);
-                            } else if (m.equals(Material.LEAVES_2)) {
-                                color = Colour.getLeaves_2().get(d);
-                            } else if (m.equals(Material.LOG)) {
-                                color = Colour.getLog().get(d);
-                            } else if (m.equals(Material.LOG_2)) {
-                                color = Colour.getLog_2().get(d);
-                            } else if (m.equals(Material.WOOD) || m.equals(Material.WOOD_STEP)) {
-                                color = Colour.getWood().get(d);
-                            } else if (m.equals(Material.PRISMARINE)) {
-                                color = Colour.getPrismarine().get(d);
-                            } else if (m.equals(Material.STEP)) {
-                                color = Colour.getSlab().get(d);
-                            } else {
-                                color = m.getColor();
-                            }
+                            Color color = m.getColor();
                             if (m.isSlab()) {
-                                if (d < 8) {
+                                // TODO get whether slab is top half or bottom half
+                                if (StairRotation.isTopHalf(data)) {
                                     Slab.drawSlab(gl, color, ONE_F, 0);
                                 } else {
                                     SlabUpper.drawUpperSlab(gl, color, ONE_F);
                                 }
                             } else if (m.isThin()) {
-                                if (m.equals(Material.REDSTONE_WIRE)) {
+                                if (m.equals(Material.redstone_wire)) {
                                     Redstone.drawWire(gl, ONE_F);
                                 } else {
                                     Slab.drawSlab(gl, color, ONE_F, 0.8f);
                                 }
                             } else if (m.isStair()) {
-                                Stair.drawStair(gl, color, ONE_F, d);
+                                Stair.drawStair(gl, color, ONE_F, data);
                             } else if (m.isPlantLike()) {
                                 float thickness;
                                 float height;
                                 switch (m) {
-                                    case BROWN_MUSHROOM:
-                                    case RED_MUSHROOM:
-                                    case CARROT:
-                                    case DEAD_BUSH:
-                                    case LONG_GRASS:
-                                    case NETHER_WARTS:
-                                    case POTATO:
+                                    case brown_mushroom:
+                                    case red_mushroom:
+                                    case carrots:
+                                    case dead_bush:
+                                    case tall_grass:
+                                    case nether_wart:
+                                    case potatoes:
                                         thickness = 0.125f;
                                         height = 0.5f;
                                         break;
-                                    case CROPS:
-                                    case RED_ROSE:
-                                    case YELLOW_FLOWER:
+                                    case wheat:
+                                    case poppy:
+                                    case dandelion:
                                         thickness = 0.125f;
                                         height = 0.8f;
                                         break;
@@ -279,32 +259,32 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                 float thickness;
                                 float height;
                                 switch (m) {
-                                    case ACACIA_FENCE:
-                                    case BIRCH_FENCE:
-                                    case COBBLE_WALL:
-                                    case DARK_OAK_FENCE:
-                                    case FENCE:
-                                    case IRON_FENCE:
-                                    case JUNGLE_FENCE:
-                                    case NETHER_FENCE:
-                                    case SPRUCE_FENCE:
+                                    case acacia_fence:
+                                    case birch_fence:
+                                    case cobblestone_wall:
+                                    case dark_oak_fence:
+                                    case oak_fence:
+                                    case iron_bars:
+                                    case jungle_fence:
+                                    case nether_brick_fence:
+                                    case spruce_fence:
                                         thickness = 0.25f;
                                         height = 1.9f;
                                         break;
-                                    case ACACIA_FENCE_GATE:
-                                    case BIRCH_FENCE_GATE:
-                                    case DARK_OAK_FENCE_GATE:
-                                    case FENCE_GATE:
-                                    case JUNGLE_FENCE_GATE:
-                                    case SPRUCE_FENCE_GATE:
+                                    case acacia_fence_gate:
+                                    case birch_fence_gate:
+                                    case dark_oak_fence_gate:
+                                    case oak_fence_gate:
+                                    case jungle_fence_gate:
+                                    case spruce_fence_gate:
                                         thickness = 0.25f;
                                         height = 1.7f;
                                         break;
-                                    case PORTAL:
-                                    case SIGN_POST:
-                                    case STAINED_GLASS_PANE:
-                                    case STANDING_BANNER:
-                                    case THIN_GLASS:
+                                    case nether_portal:
+                                    case oak_sign:
+                                    case white_stained_glass_pane:
+                                    case green_banner:
+                                    case glass_pane:
                                         thickness = 0.125f;
                                         height = 2.0f;
                                         break;
@@ -312,7 +292,7 @@ public class TARDISSchematicViewer implements GLEventListener, KeyListener, Mous
                                         thickness = 0.25f;
                                         height = ONE_F;
                                 }
-                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getByByte().get(d), m.isGlass());
+                                Fence.drawFence(gl, color, ONE_F, thickness, height, FenceRotation.getRotationFromData(data), m.isGlass());
                             } else {
                                 Cube.drawCube(gl, color, ONE_F, m.isGlass());
                             }

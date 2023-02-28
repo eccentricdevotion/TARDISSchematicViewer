@@ -48,4 +48,9 @@ public class FenceRotation {
     public static HashMap<Byte, Float> getByByte() {
         return byByte;
     }
+
+    public static float getRotationFromData(String data) {
+        // "minecraft:nether_brick_fence[east=true,north=false,south=true,waterlogged=false,west=false]"
+        return data.contains("east=true") ? 90.0f : 0;
+    }
 }

@@ -169,13 +169,13 @@ public class Editor extends JPanel {
                 JSONArray row = (JSONArray) level.get(i);
                 for (int j = 0; j < xx; j++) {
                     JSONObject col = (JSONObject) row.get(j);
-                    Material m = Material.valueOf(col.getString("type"));
+                    Material m = Material.fromDataString(col.getString("data"));
                     SquareButton sb = new SquareButton(w, m.getColor());
-                    sb.setText(col.getString("type").substring(0, 1));
+                    sb.setText(col.getString("data"));
                     sb.setPreferredSize(new Dimension(w, w));
                     sb.setBounds(i * w, j * w, w, w);
                     sb.setBorder(new LineBorder(Color.BLACK));
-                    sb.setToolTipText(col.getString("type") + ":" + col.getByte("data"));
+                    sb.setToolTipText(col.getString("data"));
                     sb.addActionListener(al);
                     layoutArea.add(sb);
                     buttons.add(sb);

@@ -16,7 +16,8 @@
  */
 package tardisschematicviewer;
 
-import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -24,20 +25,35 @@ import java.util.HashMap;
  */
 public class StairRotation {
 
-    private static final HashMap<Byte, Float> byByte = new HashMap<>();
+    private static final String facing = "facing=([a-z]+?),";
+    private static final String half = "half=([a-z]+?),";
+    private static final Pattern facingPattern = Pattern.compile(facing, Pattern.MULTILINE);
+    private static final Pattern halfPattern = Pattern.compile(half, Pattern.MULTILINE);
 
-    static {
-        StairRotation.byByte.put((byte) 0, 90.0f);
-        StairRotation.byByte.put((byte) 1, -90.0f);
-        StairRotation.byByte.put((byte) 2, 180.0f);
-        StairRotation.byByte.put((byte) 3, 0.0f);
-        StairRotation.byByte.put((byte) 4, 90.0f);
-        StairRotation.byByte.put((byte) 5, -90.0f);
-        StairRotation.byByte.put((byte) 6, 0.0f);
-        StairRotation.byByte.put((byte) 7, 180.0f);
+    public static float getFacingFromData(String data) {
+        // "minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]"
+        Matcher matcher = facingPattern.matcher(data);
+        String facing = matcher.group(0);
+        switch (facing) {
+            case "east" -> {
+                return 90.0f;
+            }
+            case "west" -> {
+                return -90.0f;
+            }
+            case "south" -> {
+                return 180.0f;
+            }
+            default -> { // north
+                return 0;
+            }
+        }
     }
 
-    public static HashMap<Byte, Float> getByByte() {
-        return byByte;
+    public static boolean isTopHalf(String data) {
+        // "minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]"
+        Matcher matcher = halfPattern.matcher(data);
+        String half = matcher.group(0);
+        return half.equals("top");
     }
 }
